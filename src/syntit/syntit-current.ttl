@@ -1,0 +1,2881 @@
+@prefix : <https://dantenetwork.it/ontology/syntit/current/> .
+@prefix orl: <https://dantenetwork.it/ontology/orl/current/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ecrm: <http://erlangen-crm.org/current/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix olires: <https://dantenetwork.it/ontology/olires/current/> .
+@prefix syntit: <https://dantenetwork.it/ontology/syntit/current/> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@base <https://dantenetwork.it/ontology/syntit/current/> .
+
+<https://dantenetwork.it/ontology/syntit/current/> rdf:type owl:Ontology ;
+                                                    <http://purl.org/dc/elements/1.1/creator> "Carlo Meghini, Daniele Metilli, Cesare Concordia, Gaia Tomazzoli" ;
+                                                    <http://purl.org/dc/elements/1.1/date> "2022-12-21" ;
+                                                    <http://purl.org/dc/elements/1.1/publisher> "ISTI-CNR" ;
+                                                    rdfs:comment "Ontology for representing the syntax of the Italian vernacular of the 14th century. Added CRIA for clause types"^^xsd:string ;
+                                                    rdfs:label "SYNTIT Ontology"@en ;
+                                                    owl:versionInfo "syntit-v3.1-20221221"^^xsd:string .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+<http://purl.org/dc/elements/1.1/date> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/publisher
+<http://purl.org/dc/elements/1.1/publisher> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://erlangen-crm.org/current/P127_has_broader_term
+ecrm:P127_has_broader_term rdf:type owl:ObjectProperty ;
+                           rdfs:label "P127 has broader term" .
+
+
+###  http://erlangen-crm.org/current/P148_has_component
+ecrm:P148_has_component rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty ;
+                        owl:inverseOf ecrm:P148i_is_component_of ;
+                        rdfs:label "P148 has component"@en .
+
+
+###  http://erlangen-crm.org/current/P148i_is_component_of
+ecrm:P148i_is_component_of rdf:type owl:ObjectProperty ;
+                           rdfs:label "P148i is component of" .
+
+
+###  http://erlangen-crm.org/current/P2_has_type
+ecrm:P2_has_type rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf ecrm:P2i_is_type_of ;
+                 rdfs:label "P2 has type"@en .
+
+
+###  http://erlangen-crm.org/current/P2i_is_type_of
+ecrm:P2i_is_type_of rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdfs:label "P2i is type of" .
+
+
+###  https://dantenetwork.it/ontology/olires/current/occurrenceOf
+olires:occurrenceOf rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                    rdfs:domain olires:TextFragment ;
+                    rdfs:range olires:SyntacticEntity .
+
+
+###  https://dantenetwork.it/ontology/olires/current/oliresTopObjectProperty
+olires:oliresTopObjectProperty rdf:type owl:ObjectProperty ;
+                               rdfs:label "OLiRes top object property" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasClauseFunction
+syntit:hasClauseFunction rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf ecrm:P2_has_type ;
+                         owl:inverseOf syntit:isClauseFunctionOf ;
+                         rdfs:domain syntit:ClauseOccurrence ;
+                         rdfs:range syntit:ClauseFunction ;
+                         rdfs:label "ha funzione della frase"@it ,
+                                    "has clause function"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasClauseType
+syntit:hasClauseType rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf ecrm:P2_has_type ;
+                     owl:inverseOf syntit:isClauseTypeOf ;
+                     rdfs:domain syntit:ClauseOccurrence ;
+                     rdfs:range [ rdf:type owl:Class ;
+                                  owl:unionOf ( syntit:ClauseSubType
+                                                syntit:ClauseType
+                                              )
+                                ] ;
+                     owl:propertyChainAxiom ( syntit:hasClauseType
+                                              ecrm:P127_has_broader_term
+                                            ) ;
+                     rdfs:label "ha tipo della frase"@it ,
+                                "has clause type"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasComponentSyntagm
+syntit:hasComponentSyntagm rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf syntit:hasSyntacticalComponent ;
+                           rdf:type owl:AsymmetricProperty ,
+                                    owl:IrreflexiveProperty ;
+                           rdfs:domain syntit:Syntagm ;
+                           rdfs:range syntit:Syntagm ;
+                           rdfs:label "has component syntagm" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasCoordinate
+syntit:hasCoordinate rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                     owl:inverseOf syntit:isCoordinateOf ;
+                     rdf:type owl:SymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain syntit:ClauseOccurrence ;
+                     rdfs:range syntit:ClauseOccurrence ;
+                     rdfs:label "ha coordinata"@it ,
+                                "has coordinate"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasDiscourseType
+syntit:hasDiscourseType rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf ecrm:P2_has_type ;
+                        owl:inverseOf syntit:isDiscourseTypeOf ;
+                        rdfs:domain syntit:Discourse ;
+                        rdfs:range syntit:DiscourseType ;
+                        rdfs:label "ha tipo del discorso"@it ,
+                                   "has discourse type"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasHead
+syntit:hasHead rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf syntit:hasSyntacticalComponent ;
+               rdfs:label "has head" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasModifier
+syntit:hasModifier rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf syntit:hasSyntacticalComponent ;
+                   rdfs:domain syntit:Syntagm ;
+                   rdfs:range ecrm:E33_Linguistic_Object ;
+                   rdfs:label "has modifier" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasSpeaker
+syntit:hasSpeaker rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                  owl:inverseOf syntit:isSpeakerOf ;
+                  rdfs:domain syntit:Discourse ;
+                  rdfs:range ecrm:E39_Actor ;
+                  rdfs:label "has speaker"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasSubordinate
+syntit:hasSubordinate rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                      owl:inverseOf syntit:isSubordinateOf ;
+                      rdf:type owl:InverseFunctionalProperty ,
+                               owl:AsymmetricProperty ,
+                               owl:IrreflexiveProperty ;
+                      rdfs:domain syntit:ClauseOccurrence ;
+                      rdfs:range syntit:ClauseOccurrence ;
+                      rdfs:label "ha subordinata"@it ,
+                                 "has subordinate"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/hasSyntacticalComponent
+syntit:hasSyntacticalComponent rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf ecrm:P148_has_component .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/includesClause
+syntit:includesClause rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf syntit:hasSyntacticalComponent ;
+                      rdfs:domain syntit:Syntagm ;
+                      rdfs:range syntit:Clause ;
+                      rdfs:label "includes clause" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/isClauseFunctionOf
+syntit:isClauseFunctionOf rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf ecrm:P2i_is_type_of ;
+                          rdfs:label "is clause function of"@en ,
+                                     "è funzione della frase"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/isClauseTypeOf
+syntit:isClauseTypeOf rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf ecrm:P2i_is_type_of ;
+                      rdfs:label "is clause type of"@en ,
+                                 "è tipo della frase"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/isCoordinateOf
+syntit:isCoordinateOf rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                      rdfs:label "is coordinate of"@en ,
+                                 "è coordinata a"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/isDiscourseTypeOf
+syntit:isDiscourseTypeOf rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf ecrm:P2i_is_type_of ;
+                         rdfs:label "is discourse type of"@en ,
+                                    "è tipo del discorso"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/isSpeakerOf
+syntit:isSpeakerOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                   rdfs:label "is speaker of"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/isSubordinateOf
+syntit:isSubordinateOf rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf olires:oliresTopObjectProperty ;
+                       rdf:type owl:FunctionalProperty ;
+                       rdfs:label "is subordinate of"@en ,
+                                  "è subordinata a"@it .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://erlangen-crm.org/current/E33_Linguistic_Object
+ecrm:E33_Linguistic_Object rdf:type owl:Class ;
+                           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                             owl:onProperty [ owl:inverseOf syntit:hasModifier
+                                                            ] ;
+                                             owl:allValuesFrom syntit:Syntagm
+                                           ] ;
+                           rdfs:label "E33 Linguistic Object"@en .
+
+
+###  http://erlangen-crm.org/current/E39_Actor
+ecrm:E39_Actor rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty syntit:isSpeakerOf ;
+                                 owl:allValuesFrom syntit:Discourse
+                               ] ;
+               rdfs:label "E39 Actor" .
+
+
+###  http://erlangen-crm.org/current/E55_Type
+ecrm:E55_Type rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing ;
+              rdfs:label "E55 Type" .
+
+
+###  https://dantenetwork.it/ontology/olires/current/SyntacticEntity
+olires:SyntacticEntity rdf:type owl:Class ;
+                       rdfs:subClassOf ecrm:E33_Linguistic_Object ;
+                       rdfs:label "Syntactic Entity" .
+
+
+###  https://dantenetwork.it/ontology/olires/current/TextFragment
+olires:TextFragment rdf:type owl:Class ;
+                    rdfs:subClassOf ecrm:E33_Linguistic_Object ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty [ owl:inverseOf syntit:hasModifier
+                                                     ] ;
+                                      owl:allValuesFrom syntit:SyntagmOccurrence
+                                    ] ;
+                    rdfs:label "Text Fragment" .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormOccurrence
+orl:FormOccurrence rdf:type owl:Class ;
+                   rdfs:subClassOf olires:TextFragment ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty [ owl:inverseOf syntit:hasHead
+                                                    ] ;
+                                     owl:allValuesFrom syntit:SyntagmOccurrence
+                                   ] .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaAggettivoVolgare
+orl:FormaAggettivoVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:FormaItalianoVolgare ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty [ owl:inverseOf syntit:hasHead
+                                                           ] ;
+                                            owl:allValuesFrom syntit:AdjectivePhrase
+                                          ] .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaItalianoVolgare
+orl:FormaItalianoVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf syntit:hasHead
+                                                          ] ;
+                                           owl:allValuesFrom syntit:Syntagm
+                                         ] .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaPreposizioneVolgare
+orl:FormaPreposizioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaItalianoVolgare ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty [ owl:inverseOf syntit:hasHead
+                                                              ] ;
+                                               owl:allValuesFrom syntit:PrepositionalPhrase
+                                             ] .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaSostantivoVolgare
+orl:FormaSostantivoVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:FormaItalianoVolgare ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty [ owl:inverseOf syntit:hasHead
+                                                            ] ;
+                                             owl:allValuesFrom syntit:NounPhrase
+                                           ] .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaVerboVolgare
+orl:FormaVerboVolgare rdf:type owl:Class ;
+                      rdfs:subClassOf orl:FormaItalianoVolgare ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf syntit:hasHead
+                                                       ] ;
+                                        owl:allValuesFrom syntit:VerbPhrase
+                                      ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/AdjectivePhrase
+syntit:AdjectivePhrase rdf:type owl:Class ;
+                       rdfs:subClassOf syntit:Syntagm ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty syntit:hasHead ;
+                                         owl:allValuesFrom orl:FormaAggettivoVolgare
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                        ] ;
+                                         owl:allValuesFrom syntit:AdjectivePhraseOccurrence
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty syntit:hasHead ;
+                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass orl:FormaAggettivoVolgare
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                        ] ;
+                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass syntit:AdjectivePhraseOccurrence
+                                       ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/AdjectivePhraseOccurrence
+syntit:AdjectivePhraseOccurrence rdf:type owl:Class ;
+                                 rdfs:subClassOf syntit:SyntagmOccurrence ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty olires:occurrenceOf ;
+                                                   owl:allValuesFrom syntit:AdjectivePhrase
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty olires:occurrenceOf ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass syntit:AdjectivePhrase
+                                                 ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Clause
+syntit:Clause rdf:type owl:Class ;
+              rdfs:subClassOf olires:SyntacticEntity ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty syntit:hasSyntacticalComponent ;
+                                owl:allValuesFrom syntit:Syntagm
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                               ] ;
+                                owl:allValuesFrom syntit:ClauseOccurrence
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                               ] ;
+                                owl:allValuesFrom syntit:Sentence
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf syntit:includesClause
+                                               ] ;
+                                owl:allValuesFrom syntit:Syntagm
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty syntit:hasSyntacticalComponent ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass syntit:Syntagm
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                               ] ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass syntit:ClauseOccurrence
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                               ] ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass syntit:Sentence
+                              ] ;
+              rdfs:label "Clause"@en ,
+                         "Frase"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ClauseFunction
+syntit:ClauseFunction rdf:type owl:Class ;
+                      rdfs:subClassOf ecrm:E55_Type ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty syntit:isClauseFunctionOf ;
+                                        owl:someValuesFrom syntit:Clause
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty syntit:isClauseFunctionOf ;
+                                        owl:allValuesFrom syntit:Clause
+                                      ] ;
+                      rdfs:label "Clause Function"@en ,
+                                 "Funzione della frase"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ClauseOccurrence
+syntit:ClauseOccurrence rdf:type owl:Class ;
+                        rdfs:subClassOf olires:TextFragment ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty olires:occurrenceOf ;
+                                          owl:allValuesFrom syntit:Clause
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty syntit:hasSyntacticalComponent ;
+                                          owl:allValuesFrom syntit:SyntagmOccurrence
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                                         ] ;
+                                          owl:allValuesFrom syntit:SentenceOccurrence
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty [ owl:inverseOf syntit:includesClause
+                                                         ] ;
+                                          owl:allValuesFrom syntit:SyntagmOccurrence
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty syntit:hasSyntacticalComponent ;
+                                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass syntit:SyntagmOccurrence
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty olires:occurrenceOf ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass syntit:Clause
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                                         ] ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass syntit:SentenceOccurrence
+                                        ] ;
+                        rdfs:label "Clause Occurrence" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ClauseSubType
+syntit:ClauseSubType rdf:type owl:Class ;
+                     rdfs:subClassOf ecrm:E55_Type ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty syntit:isClauseTypeOf ;
+                                       owl:someValuesFrom syntit:Clause
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty syntit:isClauseTypeOf ;
+                                       owl:allValuesFrom syntit:Clause
+                                     ] ;
+                     rdfs:label "Clause Sub Type"@en ,
+                                "Sottotipo della frase"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ClauseType
+syntit:ClauseType rdf:type owl:Class ;
+                  rdfs:subClassOf ecrm:E55_Type ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty syntit:isClauseTypeOf ;
+                                    owl:allValuesFrom syntit:Clause
+                                  ] ;
+                  rdfs:label "Clause Type"@en ,
+                             "Tipo della frase"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Discourse
+syntit:Discourse rdf:type owl:Class ;
+                 rdfs:subClassOf olires:TextFragment ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty syntit:hasSpeaker ;
+                                   owl:someValuesFrom ecrm:E39_Actor
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty syntit:hasSpeaker ;
+                                   owl:allValuesFrom ecrm:E39_Actor
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty syntit:hasSyntacticalComponent ;
+                                   owl:allValuesFrom syntit:SentenceOccurrence
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty syntit:hasSyntacticalComponent ;
+                                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass syntit:SentenceOccurrence
+                                 ] ;
+                 rdfs:label "Discorso"@it ,
+                            "Discourse"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/DiscourseType
+syntit:DiscourseType rdf:type owl:Class ;
+                     rdfs:subClassOf ecrm:E55_Type ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty syntit:isDiscourseTypeOf ;
+                                       owl:someValuesFrom syntit:Discourse
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty syntit:isDiscourseTypeOf ;
+                                       owl:allValuesFrom syntit:Discourse
+                                     ] ;
+                     rdfs:label "Discourse Type"@en ,
+                                "Tipo del discorso"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/NounPhrase
+syntit:NounPhrase rdf:type owl:Class ;
+                  rdfs:subClassOf syntit:Syntagm ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty syntit:hasHead ;
+                                    owl:allValuesFrom orl:FormaSostantivoVolgare
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                   ] ;
+                                    owl:allValuesFrom syntit:NounPhraseOccurrence
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty syntit:hasHead ;
+                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass orl:FormaSostantivoVolgare
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                   ] ;
+                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass syntit:NounPhraseOccurrence
+                                  ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/NounPhraseOccurrence
+syntit:NounPhraseOccurrence rdf:type owl:Class ;
+                            rdfs:subClassOf syntit:SyntagmOccurrence ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty olires:occurrenceOf ;
+                                              owl:allValuesFrom syntit:NounPhrase
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty olires:occurrenceOf ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass syntit:NounPhrase
+                                            ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PrepositionalPhrase
+syntit:PrepositionalPhrase rdf:type owl:Class ;
+                           rdfs:subClassOf syntit:Syntagm ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty syntit:hasHead ;
+                                             owl:allValuesFrom orl:FormaPreposizioneVolgare
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                            ] ;
+                                             owl:allValuesFrom syntit:PrepositionalPhraseOccurrence
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty syntit:hasHead ;
+                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass orl:FormaPreposizioneVolgare
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                            ] ;
+                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass syntit:PrepositionalPhraseOccurrence
+                                           ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PrepositionalPhraseOccurrence
+syntit:PrepositionalPhraseOccurrence rdf:type owl:Class ;
+                                     rdfs:subClassOf syntit:SyntagmOccurrence ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty olires:occurrenceOf ;
+                                                       owl:allValuesFrom syntit:PrepositionalPhrase
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty olires:occurrenceOf ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass syntit:PrepositionalPhrase
+                                                     ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Sentence
+syntit:Sentence rdf:type owl:Class ;
+                rdfs:subClassOf olires:SyntacticEntity ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty syntit:hasSyntacticalComponent ;
+                                  owl:allValuesFrom syntit:Clause
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                 ] ;
+                                  owl:allValuesFrom syntit:SentenceOccurrence
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty syntit:hasSyntacticalComponent ;
+                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass syntit:Clause
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                 ] ;
+                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass syntit:SentenceOccurrence
+                                ] ;
+                rdfs:label "Periodo"@it ,
+                           "Sentence"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SentenceOccurrence
+syntit:SentenceOccurrence rdf:type owl:Class ;
+                          rdfs:subClassOf olires:TextFragment ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty olires:occurrenceOf ;
+                                            owl:allValuesFrom syntit:Sentence
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty syntit:hasSyntacticalComponent ;
+                                            owl:allValuesFrom syntit:ClauseOccurrence
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty syntit:hasSyntacticalComponent ;
+                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass syntit:ClauseOccurrence
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty olires:occurrenceOf ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass syntit:Sentence
+                                          ] ;
+                          rdfs:label "Sentence Occurrence" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Syntagm
+syntit:Syntagm rdf:type owl:Class ;
+               rdfs:subClassOf olires:SyntacticEntity ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty syntit:hasComponentSyntagm ;
+                                 owl:allValuesFrom syntit:Syntagm
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty syntit:hasHead ;
+                                 owl:allValuesFrom orl:FormaItalianoVolgare
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty syntit:hasModifier ;
+                                 owl:allValuesFrom ecrm:E33_Linguistic_Object
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty syntit:includesClause ;
+                                 owl:allValuesFrom syntit:Clause
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                ] ;
+                                 owl:allValuesFrom syntit:SyntagmOccurrence
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty [ owl:inverseOf syntit:hasComponentSyntagm
+                                                ] ;
+                                 owl:allValuesFrom syntit:Syntagm
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                                ] ;
+                                 owl:allValuesFrom syntit:Clause
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                ] ;
+                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass syntit:SyntagmOccurrence
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                                ] ;
+                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass syntit:Clause
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty syntit:hasHead ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass orl:FormaItalianoVolgare
+                               ] ;
+               rdfs:label "Sintagma"@it ,
+                          "Syntagm"@en .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SyntagmOccurrence
+syntit:SyntagmOccurrence rdf:type owl:Class ;
+                         rdfs:subClassOf olires:TextFragment ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty olires:occurrenceOf ;
+                                           owl:allValuesFrom syntit:Syntagm
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty syntit:hasComponentSyntagm ;
+                                           owl:allValuesFrom syntit:SyntagmOccurrence
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty syntit:hasHead ;
+                                           owl:allValuesFrom orl:FormOccurrence
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty syntit:hasModifier ;
+                                           owl:allValuesFrom olires:TextFragment
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty syntit:includesClause ;
+                                           owl:allValuesFrom syntit:ClauseOccurrence
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf syntit:hasComponentSyntagm
+                                                          ] ;
+                                           owl:allValuesFrom syntit:SyntagmOccurrence
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                                          ] ;
+                                           owl:allValuesFrom syntit:ClauseOccurrence
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty olires:occurrenceOf ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass syntit:Syntagm
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty syntit:hasHead ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass orl:FormOccurrence
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf syntit:hasSyntacticalComponent
+                                                          ] ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass syntit:ClauseOccurrence
+                                         ] ;
+                         rdfs:label "Syntagm Occurrence" .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/VerbPhrase
+syntit:VerbPhrase rdf:type owl:Class ;
+                  rdfs:subClassOf syntit:Syntagm ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty syntit:hasHead ;
+                                    owl:allValuesFrom orl:FormaVerboVolgare
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                   ] ;
+                                    owl:allValuesFrom syntit:VerbPhraseOccurrence
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty syntit:hasHead ;
+                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass orl:FormaVerboVolgare
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf olires:occurrenceOf
+                                                   ] ;
+                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass syntit:VerbPhraseOccurrence
+                                  ] .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/VerbPhraseOccurrence
+syntit:VerbPhraseOccurrence rdf:type owl:Class ;
+                            rdfs:subClassOf syntit:SyntagmOccurrence ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty olires:occurrenceOf ;
+                                              owl:allValuesFrom syntit:VerbPhrase
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty olires:occurrenceOf ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass syntit:VerbPhrase
+                                            ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://dantenetwork.it/ontology/orl/current/Consecutiva
+orl:Consecutiva rdf:type owl:NamedIndividual ,
+                         syntit:ClauseType ;
+                rdfs:label "Consecutiva"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedente
+orl:ConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
+                                       syntit:ClauseSubType ;
+                              ecrm:P127_has_broader_term orl:Consecutiva ;
+                              rdfs:label "Consecutiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedenteConValoreFinale
+orl:ConsecutivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
+                                                      syntit:ClauseSubType ;
+                                             ecrm:P127_has_broader_term orl:Consecutiva ;
+                                             rdfs:label "Consecutiva con antecedente con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedenteConValoreTemporale
+orl:ConsecutivaConAntecedenteConValoreTemporale rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                rdfs:label "Consecutiva con antecedente con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedenteEpesegetica
+orl:ConsecutivaConAntecedenteEpesegetica rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term orl:Consecutiva ;
+                                         rdfs:label "Consecutiva con antecedente epesegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaEllittica
+orl:ConsecutivaEllittica rdf:type owl:NamedIndividual ,
+                                  syntit:ClauseSubType ;
+                         ecrm:P127_has_broader_term orl:Consecutiva ;
+                         rdfs:label "Consecutiva ellittica"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaLibera
+orl:ConsecutivaLibera rdf:type owl:NamedIndividual ,
+                               syntit:ClauseSubType ;
+                      ecrm:P127_has_broader_term orl:Consecutiva ;
+                      rdfs:label "Consecutiva libera"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaLiberaConValoreFinale
+orl:ConsecutivaLiberaConValoreFinale rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                     rdfs:label "Consecutiva libera con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ConsecutivaPosposta
+orl:ConsecutivaPosposta rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseSubType ;
+                        ecrm:P127_has_broader_term orl:Consecutiva ;
+                        rdfs:label "Consecutiva posposta"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/DiManiera
+orl:DiManiera rdf:type owl:NamedIndividual ,
+                       syntit:ClauseType ;
+              rdfs:label "Di Maniera"@it ,
+                         "Di maniera"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/DiManieraAGerundioPreposizionale
+orl:DiManieraAGerundioPreposizionale rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term orl:DiManiera ;
+                                     rdfs:label "Di maniera a gerundio preposizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Avversativa
+syntit:Avversativa rdf:type owl:NamedIndividual ,
+                            syntit:ClauseType ;
+                   rdfs:label "Avversativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Causale
+syntit:Causale rdf:type owl:NamedIndividual ,
+                        syntit:ClauseType ;
+               rdfs:label "Causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Comparativa
+syntit:Comparativa rdf:type owl:NamedIndividual ,
+                            syntit:ClauseType ;
+                   rdfs:label "Comparativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaConValoreFinale
+syntit:ComparativaConValoreFinale rdf:type owl:NamedIndividual ,
+                                           syntit:ClauseSubType ;
+                                  ecrm:P127_has_broader_term syntit:Comparativa ;
+                                  rdfs:label "Comparativa con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaConValoreIpotetico
+syntit:ComparativaConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Comparativa ;
+                                     rdfs:label "Comparativa con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaConValoreLimitativo
+syntit:ComparativaConValoreLimitativo rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Comparativa ;
+                                      rdfs:label "Comparativa con valore limitativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaConValoreModale
+syntit:ComparativaConValoreModale rdf:type owl:NamedIndividual ,
+                                           syntit:ClauseSubType ;
+                                  ecrm:P127_has_broader_term syntit:Comparativa ;
+                                  rdfs:label "Comparativa con valore modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaConValoreTemporale
+syntit:ComparativaConValoreTemporale rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Comparativa ;
+                                     rdfs:label "Comparativa con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaDiDisuguaglianza
+syntit:ComparativaDiDisuguaglianza rdf:type owl:NamedIndividual ,
+                                            syntit:ClauseSubType ;
+                                   ecrm:P127_has_broader_term syntit:Comparativa ;
+                                   rdfs:label "Comparativa di disuguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaDiDisuguaglianzaConValoreIpotetico
+syntit:ComparativaDiDisuguaglianzaConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                     rdfs:label "Comparativa di disuguaglianza con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaDiUguaglianza
+syntit:ComparativaDiUguaglianza rdf:type owl:NamedIndividual ,
+                                         syntit:ClauseSubType ;
+                                ecrm:P127_has_broader_term syntit:Comparativa ;
+                                rdfs:label "Comparativa di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ComparativaDiUguaglianzaConValoreDiRelativaIndipendenteTemporale
+syntit:ComparativaDiUguaglianzaConValoreDiRelativaIndipendenteTemporale rdf:type owl:NamedIndividual ,
+                                                                                 syntit:ClauseSubType ;
+                                                                        ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                                        rdfs:label "Comparativa di uguaglianza con valore di relativa indipendente temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Concessiva
+syntit:Concessiva rdf:type owl:NamedIndividual ,
+                           syntit:ClauseType ;
+                  rdfs:label "Concessiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ConcessivaAcondizionale
+syntit:ConcessivaAcondizionale rdf:type owl:NamedIndividual ,
+                                        syntit:ClauseSubType ;
+                               ecrm:P127_has_broader_term syntit:Concessiva ;
+                               rdfs:label "Concessiva acondizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ConcessivaCondizionale
+syntit:ConcessivaCondizionale rdf:type owl:NamedIndividual ,
+                                       syntit:ClauseSubType ;
+                              ecrm:P127_has_broader_term syntit:Concessiva ;
+                              rdfs:label "Concessiva condizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ConcessivaFattuale
+syntit:ConcessivaFattuale rdf:type owl:NamedIndividual ,
+                                   syntit:ClauseSubType ;
+                          ecrm:P127_has_broader_term syntit:Concessiva ;
+                          rdfs:label "Concessiva fattuale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ConcorrenzaDelRelativoInFraseDiManiera
+syntit:ConcorrenzaDelRelativoInFraseDiManiera rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term orl:DiManiera ;
+                                              rdfs:label "Concorrenza del relativo in frase di maniera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ConcorrenzaDelRelativoInFraseFinale
+syntit:ConcorrenzaDelRelativoInFraseFinale rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:Finale ;
+                                           rdfs:label "Concorrenza del relativo in frase finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaComparativaDiUguaglianza
+syntit:CoordinataAsindeticaComparativaDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                             syntit:ClauseSubType ;
+                                                    ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                    rdfs:label "Coordinata asindetica comparativa di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaConsecutivaConAntecedente
+syntit:CoordinataAsindeticaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                     rdfs:label "Coordinata asindetica consecutiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaDiManiera
+syntit:CoordinataAsindeticaDiManiera rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term orl:DiManiera ;
+                                     rdfs:label "Coordinata asindetica di maniera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaDichiarativa
+syntit:CoordinataAsindeticaDichiarativa rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                        rdfs:label "Coordinata asindetica dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaEpesegetica
+syntit:CoordinataAsindeticaEpesegetica rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Epesegetica ;
+                                       rdfs:label "Coordinata asindetica epesegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaEsclamativa
+syntit:CoordinataAsindeticaEsclamativa rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Esclamativa ;
+                                       rdfs:label "Coordinata asindetica esclamativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaFinale
+syntit:CoordinataAsindeticaFinale rdf:type owl:NamedIndividual ,
+                                           syntit:ClauseSubType ;
+                                  ecrm:P127_has_broader_term syntit:Finale ;
+                                  rdfs:label "Coordinata asindetica finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaInterrogativaAlternativa
+syntit:CoordinataAsindeticaInterrogativaAlternativa rdf:type owl:NamedIndividual ,
+                                                             syntit:ClauseSubType ;
+                                                    ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                    rdfs:label "Coordinata asindetica interrogativa alternativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaInterrogativaAlternativaRetorica
+syntit:CoordinataAsindeticaInterrogativaAlternativaRetorica rdf:type owl:NamedIndividual ,
+                                                                     syntit:ClauseSubType ;
+                                                            ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                            rdfs:label "Coordinata asindetica interrogativa alternativa retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaInterrogativaDiTipoX
+syntit:CoordinataAsindeticaInterrogativaDiTipoX rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                rdfs:label "Coordinata asindetica interrogativa di tipo x"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaInterrogativaDiTipoXRetorica
+syntit:CoordinataAsindeticaInterrogativaDiTipoXRetorica rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                        rdfs:label "Coordinata asindetica interrogativa di tipo x retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaInterrogativaDisgiuntiva
+syntit:CoordinataAsindeticaInterrogativaDisgiuntiva rdf:type owl:NamedIndividual ,
+                                                             syntit:ClauseSubType ;
+                                                    ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                    rdfs:label "Coordinata asindetica interrogativa disgiuntiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaIpotetica
+syntit:CoordinataAsindeticaIpotetica rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                     rdfs:label "Coordinata asindetica ipotetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaIussivaDiretta
+syntit:CoordinataAsindeticaIussivaDiretta rdf:type owl:NamedIndividual ,
+                                                   syntit:ClauseSubType ;
+                                          ecrm:P127_has_broader_term syntit:Iussiva ;
+                                          rdfs:label "Coordinata asindetica iussiva diretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaIussivaIndiretta
+syntit:CoordinataAsindeticaIussivaIndiretta rdf:type owl:NamedIndividual ,
+                                                     syntit:ClauseSubType ;
+                                            ecrm:P127_has_broader_term syntit:Iussiva ;
+                                            rdfs:label "Coordinata asindetica iussiva indiretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaOggettiva
+syntit:CoordinataAsindeticaOggettiva rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Oggettiva ;
+                                     rdfs:label "Coordinata asindetica oggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaOttativaConIntroduttore
+syntit:CoordinataAsindeticaOttativaConIntroduttore rdf:type owl:NamedIndividual ,
+                                                            syntit:ClauseSubType ;
+                                                   ecrm:P127_has_broader_term syntit:Ottativa ;
+                                                   rdfs:label "Coordinata asindetica ottativa con introduttore"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaOttativaLibera
+syntit:CoordinataAsindeticaOttativaLibera rdf:type owl:NamedIndividual ,
+                                                   syntit:ClauseSubType ;
+                                          ecrm:P127_has_broader_term syntit:Ottativa ;
+                                          rdfs:label "Coordinata asindetica ottativa libera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaAppositiva
+syntit:CoordinataAsindeticaRelativaAppositiva rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                              rdfs:label "Coordinata asindetica relativa appositiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaAppositivaInConstruttoComparativo
+syntit:CoordinataAsindeticaRelativaAppositivaInConstruttoComparativo rdf:type owl:NamedIndividual ,
+                                                                              syntit:ClauseSubType ;
+                                                                     ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                     rdfs:label "Coordinata asindetica relativa appositiva in construtto comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaGiustapposta
+syntit:CoordinataAsindeticaRelativaGiustapposta rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                rdfs:label "Coordinata asindetica relativa giustapposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaIndipendente
+syntit:CoordinataAsindeticaRelativaIndipendente rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                rdfs:label "Coordinata asindetica relativa indipendente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaIndipendenteConValoreTemporaleCausale
+syntit:CoordinataAsindeticaRelativaIndipendenteConValoreTemporaleCausale rdf:type owl:NamedIndividual ,
+                                                                                  syntit:ClauseSubType ;
+                                                                         ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                         rdfs:label "Coordinata asindetica relativa indipendente con valore temporale causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaRestrittiva
+syntit:CoordinataAsindeticaRelativaRestrittiva rdf:type owl:NamedIndividual ,
+                                                        syntit:ClauseSubType ;
+                                               ecrm:P127_has_broader_term syntit:Relativa ;
+                                               rdfs:label "Coordinata asindetica relativa restrittiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaRelativaRestrittivaInConstruttoComparativo
+syntit:CoordinataAsindeticaRelativaRestrittivaInConstruttoComparativo rdf:type owl:NamedIndividual ,
+                                                                               syntit:ClauseSubType ;
+                                                                      ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                      rdfs:label "Coordinata asindetica relativa restrittiva in construtto comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaSoggettivaASollevamento
+syntit:CoordinataAsindeticaSoggettivaASollevamento rdf:type owl:NamedIndividual ,
+                                                            syntit:ClauseSubType ;
+                                                   ecrm:P127_has_broader_term syntit:Soggettiva ;
+                                                   rdfs:label "Coordinata asindetica soggettiva a sollevamento"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaSubordinata
+syntit:CoordinataAsindeticaSubordinata rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:ParenteticaConValoreDiSubordinata ;
+                                       rdfs:label "Coordinata asindetica subordinata"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaTemporale
+syntit:CoordinataAsindeticaTemporale rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Temporale ;
+                                     rdfs:label "Coordinata asindetica temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaCausale
+syntit:CoordinataAvversativaCausale rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Causale ;
+                                    rdfs:label "Coordinata avversativa causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaComparativaDiUguaglianza
+syntit:CoordinataAvversativaComparativaDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                     rdfs:label "Coordinata avversativa comparativa di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaConsecutivaConAntecedente
+syntit:CoordinataAvversativaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                               syntit:ClauseSubType ;
+                                                      ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                      rdfs:label "Coordinata avversativa consecutiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaDichiarativa
+syntit:CoordinataAvversativaDichiarativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                         rdfs:label "Coordinata avversativa dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaFinale
+syntit:CoordinataAvversativaFinale rdf:type owl:NamedIndividual ,
+                                            syntit:ClauseSubType ;
+                                   ecrm:P127_has_broader_term syntit:Finale ;
+                                   rdfs:label "Coordinata avversativa finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaInterrogativaDiTipoX
+syntit:CoordinataAvversativaInterrogativaDiTipoX rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                 rdfs:label "Coordinata avversativa interrogativa di tipo x"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaInterrogativaDiTipoXRetorica
+syntit:CoordinataAvversativaInterrogativaDiTipoXRetorica rdf:type owl:NamedIndividual ,
+                                                                  syntit:ClauseSubType ;
+                                                         ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                         rdfs:label "Coordinata avversativa interrogativa di tipo x retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaIpoteticaConValoreCausale
+syntit:CoordinataAvversativaIpoteticaConValoreCausale rdf:type owl:NamedIndividual ,
+                                                               syntit:ClauseSubType ;
+                                                      ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                                      rdfs:label "Coordinata avversativa ipotetica con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaIussivaDiretta
+syntit:CoordinataAvversativaIussivaDiretta rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:Iussiva ;
+                                           rdfs:label "Coordinata avversativa iussiva diretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaIussivaIndiretta
+syntit:CoordinataAvversativaIussivaIndiretta rdf:type owl:NamedIndividual ,
+                                                      syntit:ClauseSubType ;
+                                             ecrm:P127_has_broader_term syntit:Iussiva ;
+                                             rdfs:label "Coordinata avversativa iussiva indiretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaModalizzanteOttativaConIntroduttore
+syntit:CoordinataAvversativaModalizzanteOttativaConIntroduttore rdf:type owl:NamedIndividual ,
+                                                                         syntit:ClauseSubType ;
+                                                                ecrm:P127_has_broader_term syntit:ParenteticaModalizzante ;
+                                                                rdfs:label "Coordinata avversativa modalizzante ottativa con introduttore"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaOggettiva
+syntit:CoordinataAvversativaOggettiva rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Oggettiva ;
+                                      rdfs:label "Coordinata avversativa oggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaAppositiva
+syntit:CoordinataAvversativaRelativaAppositiva rdf:type owl:NamedIndividual ,
+                                                        syntit:ClauseSubType ;
+                                               ecrm:P127_has_broader_term syntit:Relativa ;
+                                               rdfs:label "Coordinata avversativa relativa appositiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaAppositivaConValoreConsecutivo
+syntit:CoordinataAvversativaRelativaAppositivaConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                            syntit:ClauseSubType ;
+                                                                   ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                   rdfs:label "Coordinata avversativa relativa appositiva con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaAppositivaInConstruttoComparativo
+syntit:CoordinataAvversativaRelativaAppositivaInConstruttoComparativo rdf:type owl:NamedIndividual ,
+                                                                               syntit:ClauseSubType ;
+                                                                      ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                      rdfs:label "Coordinata avversativa relativa appositiva in construtto comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaGiustapposta
+syntit:CoordinataAvversativaRelativaGiustapposta rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                 rdfs:label "Coordinata avversativa relativa giustapposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaIndipendente
+syntit:CoordinataAvversativaRelativaIndipendente rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                 rdfs:label "Coordinata avversativa relativa indipendente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaIndipendenteTemporale
+syntit:CoordinataAvversativaRelativaIndipendenteTemporale rdf:type owl:NamedIndividual ,
+                                                                   syntit:ClauseSubType ;
+                                                          ecrm:P127_has_broader_term syntit:Relativa ;
+                                                          rdfs:label "Coordinata avversativa relativa indipendente temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaRestrittiva
+syntit:CoordinataAvversativaRelativaRestrittiva rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                rdfs:label "Coordinata avversativa relativa restrittiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaRelativaRestrittivaInCostruttoComparativo
+syntit:CoordinataAvversativaRelativaRestrittivaInCostruttoComparativo rdf:type owl:NamedIndividual ,
+                                                                               syntit:ClauseSubType ;
+                                                                      ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                      rdfs:label "Coordinata avversativa relativa restrittiva in costrutto comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaSoggettiva
+syntit:CoordinataAvversativaSoggettiva rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Soggettiva ;
+                                       rdfs:label "Coordinata avversativa soggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaTemporale
+syntit:CoordinataAvversativaTemporale rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Temporale ;
+                                      rdfs:label "Coordinata avversativa temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaConsecutivaConAntecedente
+syntit:CoordinataConclusivaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                     rdfs:label "Coordinata conclusiva consecutiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaDichiarativa
+syntit:CoordinataConclusivaDichiarativa rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                        rdfs:label "Coordinata conclusiva dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaDichiarativaIllocutiva
+syntit:CoordinataConclusivaDichiarativaIllocutiva rdf:type owl:NamedIndividual ,
+                                                           syntit:ClauseSubType ;
+                                                  ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                                  rdfs:label "Coordinata conclusiva dichiarativa illocutiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaIussivaDiretta
+syntit:CoordinataConclusivaIussivaDiretta rdf:type owl:NamedIndividual ,
+                                                   syntit:ClauseSubType ;
+                                          ecrm:P127_has_broader_term syntit:Iussiva ;
+                                          rdfs:label "Coordinata conclusiva iussiva diretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaIussivaDirettaPerifrastica
+syntit:CoordinataConclusivaIussivaDirettaPerifrastica rdf:type owl:NamedIndividual ,
+                                                               syntit:ClauseSubType ;
+                                                      ecrm:P127_has_broader_term syntit:Iussiva ;
+                                                      rdfs:label "Coordinata conclusiva iussiva diretta perifrastica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaIussivaIndiretta
+syntit:CoordinataConclusivaIussivaIndiretta rdf:type owl:NamedIndividual ,
+                                                     syntit:ClauseSubType ;
+                                            ecrm:P127_has_broader_term syntit:Iussiva ;
+                                            rdfs:label "Coordinata conclusiva iussiva indiretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaCausale
+syntit:CoordinataCongiuntivaCausale rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Causale ;
+                                    rdfs:label "Coordinata congiuntiva causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaComparativaConValoreIpotetico
+syntit:CoordinataCongiuntivaComparativaConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                                                   syntit:ClauseSubType ;
+                                                          ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                          rdfs:label "Coordinata congiuntiva comparativa con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaComparativaConValoreLimitativo
+syntit:CoordinataCongiuntivaComparativaConValoreLimitativo rdf:type owl:NamedIndividual ,
+                                                                    syntit:ClauseSubType ;
+                                                           ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                           rdfs:label "Coordinata congiuntiva comparativa con valore limitativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaComparativaConValoreModale
+syntit:CoordinataCongiuntivaComparativaConValoreModale rdf:type owl:NamedIndividual ,
+                                                                syntit:ClauseSubType ;
+                                                       ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                       rdfs:label "Coordinata congiuntiva comparativa con valore modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaComparativaDiDisuguaglianza
+syntit:CoordinataCongiuntivaComparativaDiDisuguaglianza rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                        rdfs:label "Coordinata congiuntiva comparativa di disuguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaComparativaDiUguaglianza
+syntit:CoordinataCongiuntivaComparativaDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                     rdfs:label "Coordinata congiuntiva comparativa di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConFunzioneDiRipresa
+syntit:CoordinataCongiuntivaConFunzioneDiRipresa rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:SubordinataConFunzioneDiRipresa ;
+                                                 rdfs:label "Coordinata congiuntiva con funzione di ripresa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConcessivaCondizionale
+syntit:CoordinataCongiuntivaConcessivaCondizionale rdf:type owl:NamedIndividual ,
+                                                            syntit:ClauseSubType ;
+                                                   ecrm:P127_has_broader_term syntit:Concessiva ;
+                                                   rdfs:label "Coordinata congiuntiva concessiva condizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConcessivaFattuale
+syntit:CoordinataCongiuntivaConcessivaFattuale rdf:type owl:NamedIndividual ,
+                                                        syntit:ClauseSubType ;
+                                               ecrm:P127_has_broader_term syntit:Concessiva ;
+                                               rdfs:label "Coordinata congiuntiva concessiva fattuale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaConAntecedente
+syntit:CoordinataCongiuntivaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                               syntit:ClauseSubType ;
+                                                      ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                      rdfs:label "Coordinata congiuntiva consecutiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaConAntecedenteConValoreFinale
+syntit:CoordinataCongiuntivaConsecutivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
+                                                                              syntit:ClauseSubType ;
+                                                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                                     rdfs:label "Coordinata congiuntiva consecutiva con antecedente con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaConAntecedenteEpisegetica
+syntit:CoordinataCongiuntivaConsecutivaConAntecedenteEpisegetica rdf:type owl:NamedIndividual ,
+                                                                          syntit:ClauseSubType ;
+                                                                 ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                                 rdfs:label "Coordinata congiuntiva consecutiva con antecedente episegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaEllittica
+syntit:CoordinataCongiuntivaConsecutivaEllittica rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                 rdfs:label "Coordinata congiuntiva consecutiva ellittica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaLibera
+syntit:CoordinataCongiuntivaConsecutivaLibera rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term orl:Consecutiva ;
+                                              rdfs:label "Coordinata congiuntiva consecutiva libera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaLiberaConValoreFinale
+syntit:CoordinataCongiuntivaConsecutivaLiberaConValoreFinale rdf:type owl:NamedIndividual ,
+                                                                      syntit:ClauseSubType ;
+                                                             ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                             rdfs:label "Coordinata congiuntiva consecutiva libera con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaPosposta
+syntit:CoordinataCongiuntivaConsecutivaPosposta rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                rdfs:label "Coordinata congiuntiva consecutiva posposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaDiManiera
+syntit:CoordinataCongiuntivaDiManiera rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term orl:DiManiera ;
+                                      rdfs:label "Coordinata congiuntiva di maniera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaDichiarativa
+syntit:CoordinataCongiuntivaDichiarativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                         rdfs:label "Coordinata congiuntiva dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaDichiarativaIllocutiva
+syntit:CoordinataCongiuntivaDichiarativaIllocutiva rdf:type owl:NamedIndividual ,
+                                                            syntit:ClauseSubType ;
+                                                   ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                                   rdfs:label "Coordinata congiuntiva dichiarativa illocutiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaEccettuativa
+syntit:CoordinataCongiuntivaEccettuativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Eccettuativa ;
+                                         rdfs:label "Coordinata congiuntiva eccettuativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaEpesegetica
+syntit:CoordinataCongiuntivaEpesegetica rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Epesegetica ;
+                                        rdfs:label "Coordinata congiuntiva epesegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaEsclamativa
+syntit:CoordinataCongiuntivaEsclamativa rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Esclamativa ;
+                                        rdfs:label "Coordinata congiuntiva esclamativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaEsclusiva
+syntit:CoordinataCongiuntivaEsclusiva rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Esclusiva ;
+                                      rdfs:label "Coordinata congiuntiva esclusiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaFinale
+syntit:CoordinataCongiuntivaFinale rdf:type owl:NamedIndividual ,
+                                            syntit:ClauseSubType ;
+                                   ecrm:P127_has_broader_term syntit:Finale ;
+                                   rdfs:label "Coordinata congiuntiva finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaInterrogativaAlternativa
+syntit:CoordinataCongiuntivaInterrogativaAlternativa rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                     rdfs:label "Coordinata congiuntiva interrogativa alternativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaInterrogativaDiTipoX
+syntit:CoordinataCongiuntivaInterrogativaDiTipoX rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                 rdfs:label "Coordinata congiuntiva interrogativa di tipo x"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaInterrogativaDiTipoXRetorica
+syntit:CoordinataCongiuntivaInterrogativaDiTipoXRetorica rdf:type owl:NamedIndividual ,
+                                                                  syntit:ClauseSubType ;
+                                                         ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                         rdfs:label "Coordinata congiuntiva interrogativa di tipo x retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaIpotetica
+syntit:CoordinataCongiuntivaIpotetica rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                      rdfs:label "Coordinata congiuntiva ipotetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaIpoteticaConValoreCausale
+syntit:CoordinataCongiuntivaIpoteticaConValoreCausale rdf:type owl:NamedIndividual ,
+                                                               syntit:ClauseSubType ;
+                                                      ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                                      rdfs:label "Coordinata congiuntiva ipotetica con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaIpoteticaSoggettiva
+syntit:CoordinataCongiuntivaIpoteticaSoggettiva rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                                rdfs:label "Coordinata congiuntiva ipotetica soggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaIussivaDiretta
+syntit:CoordinataCongiuntivaIussivaDiretta rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:Iussiva ;
+                                           rdfs:label "Coordinata congiuntiva iussiva diretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaIussivaIndiretta
+syntit:CoordinataCongiuntivaIussivaIndiretta rdf:type owl:NamedIndividual ,
+                                                      syntit:ClauseSubType ;
+                                             ecrm:P127_has_broader_term syntit:Iussiva ;
+                                             rdfs:label "Coordinata congiuntiva iussiva indiretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaLimitativa
+syntit:CoordinataCongiuntivaLimitativa rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Limitativa ;
+                                       rdfs:label "Coordinata congiuntiva limitativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaModalizzanteOttativaConIntroduttore
+syntit:CoordinataCongiuntivaModalizzanteOttativaConIntroduttore rdf:type owl:NamedIndividual ,
+                                                                         syntit:ClauseSubType ;
+                                                                ecrm:P127_has_broader_term syntit:ParenteticaModalizzante ;
+                                                                rdfs:label "Coordinata congiuntiva modalizzante ottativa con introduttore"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaObliqua
+syntit:CoordinataCongiuntivaObliqua rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Obliqua ;
+                                    rdfs:label "Coordinata congiuntiva obliqua"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaOggettiva
+syntit:CoordinataCongiuntivaOggettiva rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Oggettiva ;
+                                      rdfs:label "Coordinata congiuntiva oggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaOttativaLibera
+syntit:CoordinataCongiuntivaOttativaLibera rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:Ottativa ;
+                                           rdfs:label "Coordinata congiuntiva ottativa libera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaPseudoRelativa
+syntit:CoordinataCongiuntivaPseudoRelativa rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:Relativa ;
+                                           rdfs:label "Coordinata congiuntiva pseudo relativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositiva
+syntit:CoordinataCongiuntivaRelativaAppositiva rdf:type owl:NamedIndividual ,
+                                                        syntit:ClauseSubType ;
+                                               ecrm:P127_has_broader_term syntit:Relativa ;
+                                               rdfs:label "Coordinata congiuntiva relativa appositiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositivaConValoreConsecutivo
+syntit:CoordinataCongiuntivaRelativaAppositivaConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                            syntit:ClauseSubType ;
+                                                                   ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                   rdfs:label "Coordinata congiuntiva relativa appositiva con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositivaConValoreDiEpisegetica
+syntit:CoordinataCongiuntivaRelativaAppositivaConValoreDiEpisegetica rdf:type owl:NamedIndividual ,
+                                                                              syntit:ClauseSubType ;
+                                                                     ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                     rdfs:label "Coordinata congiuntiva relativa appositiva con valore di episegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositivaConValoreFinale
+syntit:CoordinataCongiuntivaRelativaAppositivaConValoreFinale rdf:type owl:NamedIndividual ,
+                                                                       syntit:ClauseSubType ;
+                                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                                              rdfs:label "Coordinata congiuntiva relativa appositiva con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositivaConValoreTemporale
+syntit:CoordinataCongiuntivaRelativaAppositivaConValoreTemporale rdf:type owl:NamedIndividual ,
+                                                                          syntit:ClauseSubType ;
+                                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                 rdfs:label "Coordinata congiuntiva relativa appositiva con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositivaInCostruttoComparativoDiDisuguaglianza
+syntit:CoordinataCongiuntivaRelativaAppositivaInCostruttoComparativoDiDisuguaglianza rdf:type owl:NamedIndividual ,
+                                                                                              syntit:ClauseSubType ;
+                                                                                     ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                                     rdfs:label "Coordinata congiuntiva relativa appositiva in costrutto comparativo di disuguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaAppositivaInCostruttoComparativoDiUguaglianza
+syntit:CoordinataCongiuntivaRelativaAppositivaInCostruttoComparativoDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                                           syntit:ClauseSubType ;
+                                                                                  ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                                  rdfs:label "Coordinata congiuntiva relativa appositiva in costrutto comparativo di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaGiustapposta
+syntit:CoordinataCongiuntivaRelativaGiustapposta rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                 rdfs:label "Coordinata congiuntiva relativa giustapposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaGiustappostaConValoreCausale
+syntit:CoordinataCongiuntivaRelativaGiustappostaConValoreCausale rdf:type owl:NamedIndividual ,
+                                                                          syntit:ClauseSubType ;
+                                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                 rdfs:label "Coordinata congiuntiva relativa giustapposta con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaImplicita
+syntit:CoordinataCongiuntivaRelativaImplicita rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                              rdfs:label "Coordinata congiuntiva relativa implicita"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaImplicitaConValoreLimitativo
+syntit:CoordinataCongiuntivaRelativaImplicitaConValoreLimitativo rdf:type owl:NamedIndividual ,
+                                                                          syntit:ClauseSubType ;
+                                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                 rdfs:label "Coordinata congiuntiva relativa implicita con valore limitativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaIndipendente
+syntit:CoordinataCongiuntivaRelativaIndipendente rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                 rdfs:label "Coordinata congiuntiva relativa indipendente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaIndipendenteAcondizionale
+syntit:CoordinataCongiuntivaRelativaIndipendenteAcondizionale rdf:type owl:NamedIndividual ,
+                                                                       syntit:ClauseSubType ;
+                                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                                              rdfs:label "Coordinata congiuntiva relativa indipendente acondizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaIndipendenteConValoreIpotetico
+syntit:CoordinataCongiuntivaRelativaIndipendenteConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                                                            syntit:ClauseSubType ;
+                                                                   ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                   rdfs:label "Coordinata congiuntiva relativa indipendente con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaIndipendenteConValoreModale
+syntit:CoordinataCongiuntivaRelativaIndipendenteConValoreModale rdf:type owl:NamedIndividual ,
+                                                                         syntit:ClauseSubType ;
+                                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                rdfs:label "Coordinata congiuntiva relativa indipendente con valore modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaIndipendenteInCostruttoComparativoModale
+syntit:CoordinataCongiuntivaRelativaIndipendenteInCostruttoComparativoModale rdf:type owl:NamedIndividual ,
+                                                                                      syntit:ClauseSubType ;
+                                                                             ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                             rdfs:label "Coordinata congiuntiva relativa indipendente in costrutto comparativo modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaIndipendenteTemporale
+syntit:CoordinataCongiuntivaRelativaIndipendenteTemporale rdf:type owl:NamedIndividual ,
+                                                                   syntit:ClauseSubType ;
+                                                          ecrm:P127_has_broader_term syntit:Relativa ;
+                                                          rdfs:label "Coordinata congiuntiva relativa indipendente temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaRestrittiva
+syntit:CoordinataCongiuntivaRelativaRestrittiva rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                rdfs:label "Coordinata congiuntiva relativa restrittiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaRestrittivaConValoreCausale
+syntit:CoordinataCongiuntivaRelativaRestrittivaConValoreCausale rdf:type owl:NamedIndividual ,
+                                                                         syntit:ClauseSubType ;
+                                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                rdfs:label "Coordinata congiuntiva relativa restrittiva con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaRestrittivaConValoreConsecutivo
+syntit:CoordinataCongiuntivaRelativaRestrittivaConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                             syntit:ClauseSubType ;
+                                                                    ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                    rdfs:label "Coordinata congiuntiva relativa restrittiva con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaRestrittivaInCostruttoComparativo
+syntit:CoordinataCongiuntivaRelativaRestrittivaInCostruttoComparativo rdf:type owl:NamedIndividual ,
+                                                                               syntit:ClauseSubType ;
+                                                                      ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                      rdfs:label "Coordinata congiuntiva relativa restrittiva in costrutto comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaRestrittivaInCostruttoComparativoDiUguaglianza
+syntit:CoordinataCongiuntivaRelativaRestrittivaInCostruttoComparativoDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                                            syntit:ClauseSubType ;
+                                                                                   ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                                   rdfs:label "Coordinata congiuntiva relativa restrittiva in costrutto comparativo di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaRelativaRestrittivaTemporale
+syntit:CoordinataCongiuntivaRelativaRestrittivaTemporale rdf:type owl:NamedIndividual ,
+                                                                  syntit:ClauseSubType ;
+                                                         ecrm:P127_has_broader_term syntit:Relativa ;
+                                                         rdfs:label "Coordinata congiuntiva relativa restrittiva temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaSoggettiva
+syntit:CoordinataCongiuntivaSoggettiva rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Soggettiva ;
+                                       rdfs:label "Coordinata congiuntiva soggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaSpecificativa
+syntit:CoordinataCongiuntivaSpecificativa rdf:type owl:NamedIndividual ,
+                                                   syntit:ClauseSubType ;
+                                          ecrm:P127_has_broader_term syntit:Specificativa ;
+                                          rdfs:label "Coordinata congiuntiva specificativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaStrumentale
+syntit:CoordinataCongiuntivaStrumentale rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Strumentale ;
+                                        rdfs:label "Coordinata congiuntiva strumentale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaTemporale
+syntit:CoordinataCongiuntivaTemporale rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Temporale ;
+                                      rdfs:label "Coordinata congiuntiva temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaTemporaleConValoreCausale
+syntit:CoordinataCongiuntivaTemporaleConValoreCausale rdf:type owl:NamedIndividual ,
+                                                               syntit:ClauseSubType ;
+                                                      ecrm:P127_has_broader_term syntit:Temporale ;
+                                                      rdfs:label "Coordinata congiuntiva temporale con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConsecutivaCausale
+syntit:CoordinataConsecutivaCausale rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Causale ;
+                                    rdfs:label "Coordinata consecutiva causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataConsecutivaDichiarativa
+syntit:CoordinataConsecutivaDichiarativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                         rdfs:label "Coordinata consecutiva dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCorrelativaDichiarativa
+syntit:CoordinataCorrelativaDichiarativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                         rdfs:label "Coordinata correlativa dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCorrelativaFinale
+syntit:CoordinataCorrelativaFinale rdf:type owl:NamedIndividual ,
+                                            syntit:ClauseSubType ;
+                                   ecrm:P127_has_broader_term syntit:Finale ;
+                                   rdfs:label "Coordinata correlativa finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCorrelativaLimitativa
+syntit:CoordinataCorrelativaLimitativa rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Limitativa ;
+                                       rdfs:label "Coordinata correlativa limitativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataCorrelativaSoggettivaAInfinitoPreposizionale
+syntit:CoordinataCorrelativaSoggettivaAInfinitoPreposizionale rdf:type owl:NamedIndividual ,
+                                                                       syntit:ClauseSubType ;
+                                                              ecrm:P127_has_broader_term syntit:Soggettiva ;
+                                                              rdfs:label "Coordinata correlativa soggettiva a infinito preposizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaComparativaDiDisuguaglianzaConValoreTemporale
+syntit:CoordinataDisgiuntivaComparativaDiDisuguaglianzaConValoreTemporale rdf:type owl:NamedIndividual ,
+                                                                                   syntit:ClauseSubType ;
+                                                                          ecrm:P127_has_broader_term syntit:Comparativa ;
+                                                                          rdfs:label "Coordinata disgiuntiva comparativa di disuguaglianza con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaConcessivaAcondizionale
+syntit:CoordinataDisgiuntivaConcessivaAcondizionale rdf:type owl:NamedIndividual ,
+                                                             syntit:ClauseSubType ;
+                                                    ecrm:P127_has_broader_term syntit:Concessiva ;
+                                                    rdfs:label "Coordinata disgiuntiva concessiva acondizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaConcessivaCondizionale
+syntit:CoordinataDisgiuntivaConcessivaCondizionale rdf:type owl:NamedIndividual ,
+                                                            syntit:ClauseSubType ;
+                                                   ecrm:P127_has_broader_term syntit:Concessiva ;
+                                                   rdfs:label "Coordinata disgiuntiva concessiva condizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaConsecutivaLibera
+syntit:CoordinataDisgiuntivaConsecutivaLibera rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term orl:Consecutiva ;
+                                              rdfs:label "Coordinata disgiuntiva consecutiva libera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaCorrelativaDichiarativa
+syntit:CoordinataDisgiuntivaCorrelativaDichiarativa rdf:type owl:NamedIndividual ,
+                                                             syntit:ClauseSubType ;
+                                                    ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                                    rdfs:label "Coordinata disgiuntiva correlativa dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaDiManiera
+syntit:CoordinataDisgiuntivaDiManiera rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term orl:DiManiera ;
+                                      rdfs:label "Coordinata disgiuntiva di maniera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaDichiarativa
+syntit:CoordinataDisgiuntivaDichiarativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                         rdfs:label "Coordinata disgiuntiva dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaEpesegetica
+syntit:CoordinataDisgiuntivaEpesegetica rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Epesegetica ;
+                                        rdfs:label "Coordinata disgiuntiva epesegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaEsclusiva
+syntit:CoordinataDisgiuntivaEsclusiva rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Esclusiva ;
+                                      rdfs:label "Coordinata disgiuntiva esclusiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaInterrogativaAlternativa
+syntit:CoordinataDisgiuntivaInterrogativaAlternativa rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                     rdfs:label "Coordinata disgiuntiva interrogativa alternativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaInterrogativaDiTipoX
+syntit:CoordinataDisgiuntivaInterrogativaDiTipoX rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                 rdfs:label "Coordinata disgiuntiva interrogativa di tipoX"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaInterrogativaDisgiuntiva
+syntit:CoordinataDisgiuntivaInterrogativaDisgiuntiva rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                                     rdfs:label "Coordinata disgiuntiva interrogativa disgiuntiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaIpotetica
+syntit:CoordinataDisgiuntivaIpotetica rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                      rdfs:label "Coordinata disgiuntiva ipotetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaLimitativa
+syntit:CoordinataDisgiuntivaLimitativa rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Limitativa ;
+                                       rdfs:label "Coordinata disgiuntiva limitativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaObliqua
+syntit:CoordinataDisgiuntivaObliqua rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Obliqua ;
+                                    rdfs:label "Coordinata disgiuntiva obliqua"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaOggettiva
+syntit:CoordinataDisgiuntivaOggettiva rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Oggettiva ;
+                                      rdfs:label "Coordinata disgiuntiva oggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaRelativaIndipendente
+syntit:CoordinataDisgiuntivaRelativaIndipendente rdf:type owl:NamedIndividual ,
+                                                          syntit:ClauseSubType ;
+                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                 rdfs:label "Coordinata disgiuntiva relativa indipendente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaRelativaIndipendenteAcondizionale
+syntit:CoordinataDisgiuntivaRelativaIndipendenteAcondizionale rdf:type owl:NamedIndividual ,
+                                                                       syntit:ClauseSubType ;
+                                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                                              rdfs:label "Coordinata disgiuntiva relativa indipendente acondizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaRelativaIndipendenteTemporale
+syntit:CoordinataDisgiuntivaRelativaIndipendenteTemporale rdf:type owl:NamedIndividual ,
+                                                                   syntit:ClauseSubType ;
+                                                          ecrm:P127_has_broader_term syntit:Relativa ;
+                                                          rdfs:label "Coordinata disgiuntiva relativa indipendente temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaRelativaRestrittiva
+syntit:CoordinataDisgiuntivaRelativaRestrittiva rdf:type owl:NamedIndividual ,
+                                                         syntit:ClauseSubType ;
+                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                rdfs:label "Coordinata disgiuntiva restrittiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaRelativaRestrittivaConValoreConsecutivo
+syntit:CoordinataDisgiuntivaRelativaRestrittivaConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                             syntit:ClauseSubType ;
+                                                                    ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                    rdfs:label "Coordinata disgiuntiva restrittiva con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaSoggettiva
+syntit:CoordinataDisgiuntivaSoggettiva rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Soggettiva ;
+                                       rdfs:label "Coordinata disgiuntiva soggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaTemporale
+syntit:CoordinataDisgiuntivaTemporale rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Temporale ;
+                                      rdfs:label "Coordinata disgiuntiva temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataEsplicativaDichiarativa
+syntit:CoordinataEsplicativaDichiarativa rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                                         rdfs:label "Coordinata esplicativa dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataEsplicativaObliqua
+syntit:CoordinataEsplicativaObliqua rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Obliqua ;
+                                    rdfs:label "Coordinata esplicativa obliqua"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataEsplicativaOggettiva
+syntit:CoordinataEsplicativaOggettiva rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Oggettiva ;
+                                      rdfs:label "Coordinata esplicativa oggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataEsplicativaRelativaAppositivaConAntecedente
+syntit:CoordinataEsplicativaRelativaAppositivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                                      syntit:ClauseSubType ;
+                                                             ecrm:P127_has_broader_term syntit:Relativa ;
+                                                             rdfs:label "Coordinata esplicativa relativa appositiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinataEsplicativaRelativaIndipendenteConValoreModale
+syntit:CoordinataEsplicativaRelativaIndipendenteConValoreModale rdf:type owl:NamedIndividual ,
+                                                                         syntit:ClauseSubType ;
+                                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                rdfs:label "Coordinata esplicativa relativa indipendente con valore modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/CoordinateClause
+syntit:CoordinateClause rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseFunction .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Dichiarativa
+syntit:Dichiarativa rdf:type owl:NamedIndividual ,
+                             syntit:ClauseType ;
+                    rdfs:label "Dichiarativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/DichiarativaIllocutiva
+syntit:DichiarativaIllocutiva rdf:type owl:NamedIndividual ,
+                                       syntit:ClauseSubType ;
+                              ecrm:P127_has_broader_term syntit:Dichiarativa ;
+                              rdfs:label "Dichiarativa illocutiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/DirectDiscourse
+syntit:DirectDiscourse rdf:type owl:NamedIndividual ,
+                                syntit:DiscourseType .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Eccettuativa
+syntit:Eccettuativa rdf:type owl:NamedIndividual ,
+                             syntit:ClauseType ;
+                    rdfs:label "Eccettuativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/EccettuativaConValoreDiComparativaDiUguaglianza
+syntit:EccettuativaConValoreDiComparativaDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                syntit:ClauseSubType ;
+                                                       ecrm:P127_has_broader_term syntit:Eccettuativa ;
+                                                       rdfs:label "Eccettuativa con valore di comparativa di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Epesegetica
+syntit:Epesegetica rdf:type owl:NamedIndividual ,
+                            syntit:ClauseType ;
+                   rdfs:label "Epesegetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Esclamativa
+syntit:Esclamativa rdf:type owl:NamedIndividual ,
+                            syntit:ClauseType ;
+                   rdfs:label "Esclamativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Esclusiva
+syntit:Esclusiva rdf:type owl:NamedIndividual ,
+                          syntit:ClauseType ;
+                 rdfs:label "Esclusiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/FalsaAlternativa
+syntit:FalsaAlternativa rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseSubType ;
+                        ecrm:P127_has_broader_term syntit:Pseudocoordinata ;
+                        rdfs:label "Falsa alternativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/FalsaCongiuntiva
+syntit:FalsaCongiuntiva rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseSubType ;
+                        ecrm:P127_has_broader_term syntit:Pseudocoordinata ;
+                        rdfs:label "Falsa congiuntiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Finale
+syntit:Finale rdf:type owl:NamedIndividual ,
+                       syntit:ClauseType ;
+              rdfs:label "Finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/FinaleConValoreIpotetico
+syntit:FinaleConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                         syntit:ClauseSubType ;
+                                ecrm:P127_has_broader_term syntit:Finale ;
+                                rdfs:label "Finale con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/FunzioneDiRipresa
+syntit:FunzioneDiRipresa rdf:type owl:NamedIndividual ,
+                                  syntit:ClauseSubType ;
+                         ecrm:P127_has_broader_term syntit:SubordinataConFunzioneDiRipresa ;
+                         rdfs:label "Funzione di ripresa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Interrogativa
+syntit:Interrogativa rdf:type owl:NamedIndividual ,
+                              syntit:ClauseType ;
+                     rdfs:label "Interrogativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/InterrogativaAlternativa
+syntit:InterrogativaAlternativa rdf:type owl:NamedIndividual ,
+                                         syntit:ClauseSubType ;
+                                ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                rdfs:label "Interrogativa alternativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/InterrogativaAlternativaRetorica
+syntit:InterrogativaAlternativaRetorica rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                        rdfs:label "Interrogativa alternativa retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/InterrogativaDiTipoX
+syntit:InterrogativaDiTipoX rdf:type owl:NamedIndividual ,
+                                     syntit:ClauseSubType ;
+                            ecrm:P127_has_broader_term syntit:Interrogativa ;
+                            rdfs:label "Interrogativa di tipoX"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/InterrogativaDiTipoXRetorica
+syntit:InterrogativaDiTipoXRetorica rdf:type owl:NamedIndividual ,
+                                             syntit:ClauseSubType ;
+                                    ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                    rdfs:label "Interrogativa di tipo x retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/InterrogativaDisgiuntiva
+syntit:InterrogativaDisgiuntiva rdf:type owl:NamedIndividual ,
+                                         syntit:ClauseSubType ;
+                                ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                rdfs:label "Interrogativa disgiuntiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/InterrogativaDisgiuntivaRetorica
+syntit:InterrogativaDisgiuntivaRetorica rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Interrogativa ;
+                                        rdfs:label "Interrogativa disgiuntiva retorica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Ipotetica
+syntit:Ipotetica rdf:type owl:NamedIndividual ,
+                          syntit:ClauseType ;
+                 rdfs:label "Ipotetica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IpoteticaBiaffermativa
+syntit:IpoteticaBiaffermativa rdf:type owl:NamedIndividual ,
+                                       syntit:ClauseSubType ;
+                              ecrm:P127_has_broader_term syntit:Ipotetica ;
+                              rdfs:label "Ipotetica biaffermativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IpoteticaConValoreCausale
+syntit:IpoteticaConValoreCausale rdf:type owl:NamedIndividual ,
+                                          syntit:ClauseSubType ;
+                                 ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                 rdfs:label "Ipotetica con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IpoteticaConValoreEccettuativo
+syntit:IpoteticaConValoreEccettuativo rdf:type owl:NamedIndividual ,
+                                               syntit:ClauseSubType ;
+                                      ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                      rdfs:label "Ipotetica con valore eccettuativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IpoteticaObliqua
+syntit:IpoteticaObliqua rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseSubType ;
+                        ecrm:P127_has_broader_term syntit:Ipotetica ;
+                        rdfs:label "Ipotetica obliqua"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IpoteticaRelativaGiustapposta
+syntit:IpoteticaRelativaGiustapposta rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Ipotetica ;
+                                     rdfs:label "Ipotetica relativa giustapposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IpoteticaSoggettiva
+syntit:IpoteticaSoggettiva rdf:type owl:NamedIndividual ,
+                                    syntit:ClauseSubType ;
+                           ecrm:P127_has_broader_term syntit:Ipotetica ;
+                           rdfs:label "Ipotetica soggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Iussiva
+syntit:Iussiva rdf:type owl:NamedIndividual ,
+                        syntit:ClauseType ;
+               ecrm:P127_has_broader_term syntit:Iussiva ;
+               rdfs:label "Iussiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IussivaAugurativa
+syntit:IussivaAugurativa rdf:type owl:NamedIndividual ,
+                                  syntit:ClauseSubType ;
+                         ecrm:P127_has_broader_term syntit:Iussiva ;
+                         rdfs:label "Iussiva augurativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IussivaDiretta
+syntit:IussivaDiretta rdf:type owl:NamedIndividual ,
+                               syntit:ClauseSubType ;
+                      ecrm:P127_has_broader_term syntit:Iussiva ;
+                      rdfs:label "Iussiva diretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IussivaDirettaPerifrastica
+syntit:IussivaDirettaPerifrastica rdf:type owl:NamedIndividual ,
+                                           syntit:ClauseSubType ;
+                                  ecrm:P127_has_broader_term syntit:Iussiva ;
+                                  rdfs:label "Iussiva diretta perifrastica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/IussivaIndiretta
+syntit:IussivaIndiretta rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseSubType ;
+                        ecrm:P127_has_broader_term syntit:Iussiva ;
+                        rdfs:label "Iussiva indiretta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Limitativa
+syntit:Limitativa rdf:type owl:NamedIndividual ,
+                           syntit:ClauseType ;
+                  rdfs:label "Limitativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/LimitativaConValoreCausale
+syntit:LimitativaConValoreCausale rdf:type owl:NamedIndividual ,
+                                           syntit:ClauseSubType ;
+                                  ecrm:P127_has_broader_term syntit:Limitativa ;
+                                  rdfs:label "Limitativa con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/LimitativaConValoreCausaleEccettuativo
+syntit:LimitativaConValoreCausaleEccettuativo rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Limitativa ;
+                                              rdfs:label "Limitativa con valore causale eccettuativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/LimitativaConValoreEccettuativo
+syntit:LimitativaConValoreEccettuativo rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseSubType ;
+                                       ecrm:P127_has_broader_term syntit:Limitativa ;
+                                       rdfs:label "Limitativa con valore eccettuativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/MainClause
+syntit:MainClause rdf:type owl:NamedIndividual ,
+                           syntit:ClauseFunction .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Modale
+syntit:Modale rdf:type owl:NamedIndividual ,
+                       syntit:ClauseType ;
+              rdfs:label "Modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Modalizzante
+syntit:Modalizzante rdf:type owl:NamedIndividual ,
+                             syntit:ClauseSubType ;
+                    ecrm:P127_has_broader_term syntit:ParenteticaModalizzante ;
+                    rdfs:label "Modalizzante"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ModalizzanteOttativaConIntroduttore
+syntit:ModalizzanteOttativaConIntroduttore rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:ParenteticaModalizzante ;
+                                           rdfs:label "Modalizzante ottativa con introduttore"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ModalizzanteOttativaLibera
+syntit:ModalizzanteOttativaLibera rdf:type owl:NamedIndividual ,
+                                           syntit:ClauseSubType ;
+                                  ecrm:P127_has_broader_term syntit:ParenteticaModalizzante ;
+                                  rdfs:label "Modalizzante ottativa libera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Obliqua
+syntit:Obliqua rdf:type owl:NamedIndividual ,
+                        syntit:ClauseType ;
+               rdfs:label "Obliqua"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Oggettiva
+syntit:Oggettiva rdf:type owl:NamedIndividual ,
+                          syntit:ClauseType ;
+                 rdfs:label "Oggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Ottativa
+syntit:Ottativa rdf:type owl:NamedIndividual ,
+                         syntit:ClauseType ;
+                rdfs:label "Ottativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/OttativaConIntroduttore
+syntit:OttativaConIntroduttore rdf:type owl:NamedIndividual ,
+                                        syntit:ClauseSubType ;
+                               ecrm:P127_has_broader_term syntit:Ottativa ;
+                               rdfs:label "Ottativa con introduttore"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/OttativaLibera
+syntit:OttativaLibera rdf:type owl:NamedIndividual ,
+                               syntit:ClauseSubType ;
+                      ecrm:P127_has_broader_term syntit:Ottativa ;
+                      rdfs:label "Ottativa libera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ParenteticaConValoreDiSubordinata
+syntit:ParenteticaConValoreDiSubordinata rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseType ;
+                                         rdfs:label "Parentetica Con Valore Di Subordinata"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ParenteticaModalizzante
+syntit:ParenteticaModalizzante rdf:type owl:NamedIndividual ,
+                                        syntit:ClauseType ;
+                               rdfs:label "Parentetica Modalizzante"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ParentheticalClause
+syntit:ParentheticalClause rdf:type owl:NamedIndividual ,
+                                    syntit:ClauseFunction .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ParentheticalCoordinateClause
+syntit:ParentheticalCoordinateClause rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseFunction .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Predicativa
+syntit:Predicativa rdf:type owl:NamedIndividual ,
+                            syntit:ClauseType ;
+                   rdfs:label "Predicativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PseudoParentheticalCoordinateClause
+syntit:PseudoParentheticalCoordinateClause rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseFunction .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PseudoRelativa
+syntit:PseudoRelativa rdf:type owl:NamedIndividual ,
+                               syntit:ClauseSubType ;
+                      ecrm:P127_has_broader_term syntit:Relativa ;
+                      rdfs:label "Pseudo relativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PseudoRelativaConValoreFinale
+syntit:PseudoRelativaConValoreFinale rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Relativa ;
+                                     rdfs:label "Pseudo relativa con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PseudoRelativaScissa
+syntit:PseudoRelativaScissa rdf:type owl:NamedIndividual ,
+                                     syntit:ClauseSubType ;
+                            ecrm:P127_has_broader_term syntit:Relativa ;
+                            rdfs:label "Pseudo relativa scissa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/PseudoRelativaScissaConValoreTemporale
+syntit:PseudoRelativaScissaConValoreTemporale rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                              rdfs:label "Pseudo relativa scissa con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Pseudocoordinata
+syntit:Pseudocoordinata rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseType ;
+                        rdfs:label "Pseudocoordinata"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Relativa
+syntit:Relativa rdf:type owl:NamedIndividual ,
+                         syntit:ClauseType ;
+                rdfs:label "Relativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedente
+syntit:RelativaAppositivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                        rdfs:label "Relativa appositiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteConValoreCausale
+syntit:RelativaAppositivaConAntecedenteConValoreCausale rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                                        rdfs:label "Relativa appositiva con antecedente con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteConValoreConsecutivo
+syntit:RelativaAppositivaConAntecedenteConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                     syntit:ClauseSubType ;
+                                                            ecrm:P127_has_broader_term syntit:Relativa ;
+                                                            rdfs:label "Relativa appositiva con antecedente con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteConValoreConsecutivoFinale
+syntit:RelativaAppositivaConAntecedenteConValoreConsecutivoFinale rdf:type owl:NamedIndividual ,
+                                                                           syntit:ClauseSubType ;
+                                                                  ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                  rdfs:label "Relativa appositiva con antecedente con valore consecutivo finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteConValoreFinale
+syntit:RelativaAppositivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
+                                                                syntit:ClauseSubType ;
+                                                       ecrm:P127_has_broader_term syntit:Relativa ;
+                                                       rdfs:label "Relativa appositiva con antecedente con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteConValoreStrumentale
+syntit:RelativaAppositivaConAntecedenteConValoreStrumentale rdf:type owl:NamedIndividual ,
+                                                                     syntit:ClauseSubType ;
+                                                            ecrm:P127_has_broader_term syntit:Relativa ;
+                                                            rdfs:label "Relativa appositiva con antecedente con valore strumentale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteGiustapposta
+syntit:RelativaAppositivaConAntecedenteGiustapposta rdf:type owl:NamedIndividual ,
+                                                             syntit:ClauseSubType ;
+                                                    ecrm:P127_has_broader_term syntit:Relativa ;
+                                                    rdfs:label "Relativa appositiva con antecedente giustapposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteInCostruttoComparativoDiDisuguaglianza
+syntit:RelativaAppositivaConAntecedenteInCostruttoComparativoDiDisuguaglianza rdf:type owl:NamedIndividual ,
+                                                                                       syntit:ClauseSubType ;
+                                                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                              rdfs:label "Relativa appositiva con antecedente in costrutto comparativo di disuguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteInCostruttoComparativoDiUguaglianza
+syntit:RelativaAppositivaConAntecedenteInCostruttoComparativoDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                                    syntit:ClauseSubType ;
+                                                                           ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                           rdfs:label "Relativa appositiva con antecedente in costrutto comparativo di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaConAntecedenteInCostruttoEccettuativo
+syntit:RelativaAppositivaConAntecedenteInCostruttoEccettuativo rdf:type owl:NamedIndividual ,
+                                                                        syntit:ClauseSubType ;
+                                                               ecrm:P127_has_broader_term syntit:Relativa ;
+                                                               rdfs:label "Relativa appositiva con antecedente in costrutto eccettuativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaGiustappostaConValoreConsecutivo
+syntit:RelativaAppositivaGiustappostaConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                   syntit:ClauseSubType ;
+                                                          ecrm:P127_has_broader_term syntit:Relativa ;
+                                                          rdfs:label "Relativa appositiva giustapposta con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaGiustappostaConValoreDiManiera
+syntit:RelativaAppositivaGiustappostaConValoreDiManiera rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                                        rdfs:label "Relativa appositiva giustapposta con valore di maniera"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaAppositivaGiustappostaConValoreIpotetico
+syntit:RelativaAppositivaGiustappostaConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                                        rdfs:label "Relativa appositiva giustapposta con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaConAntecedenteInCostruttoComparativoDiUguaglianza
+syntit:RelativaConAntecedenteInCostruttoComparativoDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                          syntit:ClauseSubType ;
+                                                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                 rdfs:label "Relativa con antecedente in costrutto comparativo di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaGiustapposta
+syntit:RelativaGiustapposta rdf:type owl:NamedIndividual ,
+                                     syntit:ClauseSubType ;
+                            ecrm:P127_has_broader_term syntit:Relativa ;
+                            rdfs:label "Relativa giustapposta"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaImplicita
+syntit:RelativaImplicita rdf:type owl:NamedIndividual ,
+                                  syntit:ClauseSubType ;
+                         ecrm:P127_has_broader_term syntit:Relativa ;
+                         rdfs:label "Relativa implicita"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaImplicitaConValoreConsecutivo
+syntit:RelativaImplicitaConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                      syntit:ClauseSubType ;
+                                             ecrm:P127_has_broader_term syntit:Relativa ;
+                                             rdfs:label "Relativa implicita con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaImplicitaConValoreFinale
+syntit:RelativaImplicitaConValoreFinale rdf:type owl:NamedIndividual ,
+                                                 syntit:ClauseSubType ;
+                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                        rdfs:label "Relativa implicita con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaImplicitaConValoreLimitativo
+syntit:RelativaImplicitaConValoreLimitativo rdf:type owl:NamedIndividual ,
+                                                     syntit:ClauseSubType ;
+                                            ecrm:P127_has_broader_term syntit:Relativa ;
+                                            rdfs:label "Relativa implicita con valore limitativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaImplicitaDeontica
+syntit:RelativaImplicitaDeontica rdf:type owl:NamedIndividual ,
+                                          syntit:ClauseSubType ;
+                                 ecrm:P127_has_broader_term syntit:Relativa ;
+                                 rdfs:label "Relativa implicita deontica"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendente
+syntit:RelativaIndipendente rdf:type owl:NamedIndividual ,
+                                     syntit:ClauseSubType ;
+                            ecrm:P127_has_broader_term syntit:Relativa ;
+                            rdfs:label "Relativa indipendente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteAcondizionale
+syntit:RelativaIndipendenteAcondizionale rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Relativa ;
+                                         rdfs:label "Relativa indipendente acondizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteConValoreIpotetico
+syntit:RelativaIndipendenteConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                              rdfs:label "Relativa indipendente con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteConValoreModale
+syntit:RelativaIndipendenteConValoreModale rdf:type owl:NamedIndividual ,
+                                                    syntit:ClauseSubType ;
+                                           ecrm:P127_has_broader_term syntit:Relativa ;
+                                           rdfs:label "Relativa indipendente con valore modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteConValoreTemporale
+syntit:RelativaIndipendenteConValoreTemporale rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                              rdfs:label "Relativa indipendente con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteConValoreTemporaleAcondizionale
+syntit:RelativaIndipendenteConValoreTemporaleAcondizionale rdf:type owl:NamedIndividual ,
+                                                                    syntit:ClauseSubType ;
+                                                           ecrm:P127_has_broader_term syntit:Relativa ;
+                                                           rdfs:label "Relativa indipendente con valore temporale acondizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteConValoreTemporaleCausale
+syntit:RelativaIndipendenteConValoreTemporaleCausale rdf:type owl:NamedIndividual ,
+                                                              syntit:ClauseSubType ;
+                                                     ecrm:P127_has_broader_term syntit:Relativa ;
+                                                     rdfs:label "Relativa indipendente con valore temporale causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteInCostruttoCausale
+syntit:RelativaIndipendenteInCostruttoCausale rdf:type owl:NamedIndividual ,
+                                                       syntit:ClauseSubType ;
+                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                              rdfs:label "Relativa indipendente in costrutto causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteInCostruttoComparativo
+syntit:RelativaIndipendenteInCostruttoComparativo rdf:type owl:NamedIndividual ,
+                                                           syntit:ClauseSubType ;
+                                                  ecrm:P127_has_broader_term syntit:Relativa ;
+                                                  rdfs:label "Relativa indipendente in costrutto comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteInCostruttoComparativoDiUguaglianza
+syntit:RelativaIndipendenteInCostruttoComparativoDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                        syntit:ClauseSubType ;
+                                                               ecrm:P127_has_broader_term syntit:Relativa ;
+                                                               rdfs:label "Relativa indipendente in costrutto comparativo di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaIndipendenteInCostruttoComparativoModale
+syntit:RelativaIndipendenteInCostruttoComparativoModale rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                                        rdfs:label "Relativa indipendente in costrutto comparativo modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedente
+syntit:RelativaRestrittivaConAntecedente rdf:type owl:NamedIndividual ,
+                                                  syntit:ClauseSubType ;
+                                         ecrm:P127_has_broader_term syntit:Relativa ;
+                                         rdfs:label "Relativa restrittiva con antecedente"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreCausale
+syntit:RelativaRestrittivaConAntecedenteConValoreCausale rdf:type owl:NamedIndividual ,
+                                                                  syntit:ClauseSubType ;
+                                                         ecrm:P127_has_broader_term syntit:Relativa ;
+                                                         rdfs:label "Relativa restrittiva con antecedente con valore causale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreConsecutivo
+syntit:RelativaRestrittivaConAntecedenteConValoreConsecutivo rdf:type owl:NamedIndividual ,
+                                                                      syntit:ClauseSubType ;
+                                                             ecrm:P127_has_broader_term syntit:Relativa ;
+                                                             rdfs:label "Relativa restrittiva con antecedente con valore consecutivo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreDiConcessivaCondizionale
+syntit:RelativaRestrittivaConAntecedenteConValoreDiConcessivaCondizionale rdf:type owl:NamedIndividual ,
+                                                                                   syntit:ClauseSubType ;
+                                                                          ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                          rdfs:label "Relativa restrittiva con antecedente con valore di concessiva condizionale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreDiConcessivaFattuale
+syntit:RelativaRestrittivaConAntecedenteConValoreDiConcessivaFattuale rdf:type owl:NamedIndividual ,
+                                                                               syntit:ClauseSubType ;
+                                                                      ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                      rdfs:label "Relativa restrittiva con antecedente con valore di concessiva fattuale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreFinale
+syntit:RelativaRestrittivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
+                                                                 syntit:ClauseSubType ;
+                                                        ecrm:P127_has_broader_term syntit:Relativa ;
+                                                        rdfs:label "Relativa restrittiva con antecedente con valore finale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreIpotetico
+syntit:RelativaRestrittivaConAntecedenteConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                                                    syntit:ClauseSubType ;
+                                                           ecrm:P127_has_broader_term syntit:Relativa ;
+                                                           rdfs:label "Relativa restrittiva con antecedente con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteConValoreTemporale
+syntit:RelativaRestrittivaConAntecedenteConValoreTemporale rdf:type owl:NamedIndividual ,
+                                                                    syntit:ClauseSubType ;
+                                                           ecrm:P127_has_broader_term syntit:Relativa ;
+                                                           rdfs:label "Relativa restrittiva con antecedente con valore temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteInCostruttoComparativoDiDisuguaglianza
+syntit:RelativaRestrittivaConAntecedenteInCostruttoComparativoDiDisuguaglianza rdf:type owl:NamedIndividual ,
+                                                                                        syntit:ClauseSubType ;
+                                                                               ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                               rdfs:label "Relativa restrittiva con antecedente in costrutto comparativo di disuguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteInCostruttoComparativoDiUguaglianza
+syntit:RelativaRestrittivaConAntecedenteInCostruttoComparativoDiUguaglianza rdf:type owl:NamedIndividual ,
+                                                                                     syntit:ClauseSubType ;
+                                                                            ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                            rdfs:label "Relativa restrittiva con antecedente in costrutto comparativo di uguaglianza"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteInCostruttoComparativoModale
+syntit:RelativaRestrittivaConAntecedenteInCostruttoComparativoModale rdf:type owl:NamedIndividual ,
+                                                                              syntit:ClauseSubType ;
+                                                                     ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                     rdfs:label "Relativa restrittiva con antecedente in costrutto comparativo modale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteInCostruttoEccettuativo
+syntit:RelativaRestrittivaConAntecedenteInCostruttoEccettuativo rdf:type owl:NamedIndividual ,
+                                                                         syntit:ClauseSubType ;
+                                                                ecrm:P127_has_broader_term syntit:Relativa ;
+                                                                rdfs:label "Relativa restrittiva con antecedente in costrutto eccettuativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/RelativaRestrittivaConAntecedenteInCostruttoLimitativo
+syntit:RelativaRestrittivaConAntecedenteInCostruttoLimitativo rdf:type owl:NamedIndividual ,
+                                                                       syntit:ClauseSubType ;
+                                                              ecrm:P127_has_broader_term syntit:Relativa ;
+                                                              rdfs:label "Relativa restrittiva con antecedente in costrutto limitativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Soggettiva
+syntit:Soggettiva rdf:type owl:NamedIndividual ,
+                           syntit:ClauseType ;
+                  rdfs:label "Soggettiva"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SoggettivaASollevamento
+syntit:SoggettivaASollevamento rdf:type owl:NamedIndividual ,
+                                        syntit:ClauseSubType ;
+                               ecrm:P127_has_broader_term syntit:Soggettiva ;
+                               rdfs:label "Soggettiva a sollevamento"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SoggettivaScissa
+syntit:SoggettivaScissa rdf:type owl:NamedIndividual ,
+                                 syntit:ClauseSubType ;
+                        ecrm:P127_has_broader_term syntit:Soggettiva ;
+                        rdfs:label "Soggettiva scissa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SpeakableDiscourse
+syntit:SpeakableDiscourse rdf:type owl:NamedIndividual ,
+                                   syntit:DiscourseType .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Specificativa
+syntit:Specificativa rdf:type owl:NamedIndividual ,
+                              syntit:ClauseSubType ;
+                     ecrm:P127_has_broader_term syntit:Soggettiva ;
+                     rdfs:label "Specificativa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Strumentale
+syntit:Strumentale rdf:type owl:NamedIndividual ,
+                            syntit:ClauseType ;
+                   rdfs:label "Strumentale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Subordinata
+syntit:Subordinata rdf:type owl:NamedIndividual ,
+                            syntit:ClauseSubType ;
+                   rdfs:label "Subordinata"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SubordinataConFunzioneDiRipresa
+syntit:SubordinataConFunzioneDiRipresa rdf:type owl:NamedIndividual ,
+                                                syntit:ClauseType ;
+                                       rdfs:label "Subordinata con funzione di ripresa"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/SubordinateClause
+syntit:SubordinateClause rdf:type owl:NamedIndividual ,
+                                  syntit:ClauseFunction .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/Temporale
+syntit:Temporale rdf:type owl:NamedIndividual ,
+                          syntit:ClauseType ;
+                 rdfs:label "Temporale"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/TemporaleConValoreComparativo
+syntit:TemporaleConValoreComparativo rdf:type owl:NamedIndividual ,
+                                              syntit:ClauseSubType ;
+                                     ecrm:P127_has_broader_term syntit:Temporale ;
+                                     rdfs:label "Temporale con valore comparativo"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/TemporaleConValoreIpotetico
+syntit:TemporaleConValoreIpotetico rdf:type owl:NamedIndividual ,
+                                            syntit:ClauseSubType ;
+                                   ecrm:P127_has_broader_term syntit:Temporale ;
+                                   rdfs:label "Temporale con valore ipotetico"@it .
+
+
+###  https://dantenetwork.it/ontology/syntit/current/ThoughtDiscourse
+syntit:ThoughtDiscourse rdf:type owl:NamedIndividual ,
+                                 syntit:DiscourseType .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
