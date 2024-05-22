@@ -49,11 +49,6 @@ ontolex:lexicalForm rdf:type owl:ObjectProperty ;
                     rdfs:label "lexical form" .
 
 
-###  https://dantenetwork.it/ontology/olires/current/oliresTopObjectProperty
-olires:oliresTopObjectProperty rdf:type owl:ObjectProperty ;
-                               rdfs:label "OLiRes top object property" .
-
-
 ###  https://dantenetwork.it/ontology/orl/current/TipoAggettivoVolgare
 orl:TipoAggettivoVolgare rdf:type owl:ObjectProperty ;
                          rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
@@ -1038,12 +1033,6 @@ orl:VerboVolgareRiflessivo rdf:type owl:Class ;
 #################################################################
 #    Individuals
 #################################################################
-
-###  https://dantenetwork.it/ontology/olires/PreposizioneVolgareDiQuantit%C3%A0
-<https://dantenetwork.it/ontology/olires/PreposizioneVolgareDiQuantit%C3%A0> rdf:type owl:NamedIndividual ,
-                                                                                      orl:TipoComplementoIIPreposizioneVolgare ;
-                                                                             rdfs:label "PreposizioneVolgareDiQuantità"@en .
-
 
 ###  https://dantenetwork.it/ontology/orl/current/AggettivoDimostrativoVolgare
 orl:AggettivoDimostrativoVolgare rdf:type owl:NamedIndividual ,
@@ -2617,6 +2606,12 @@ orl:VerboVolgareTerzaConiugazione rdf:type owl:NamedIndividual ,
 orl:VerboVolgareTransitivo rdf:type owl:NamedIndividual ,
                                     orl:TipoTransitivitaVerboVolgare ;
                            rdfs:label "VerboVolgareTransitivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiQuantit%C3%A0
+<https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiQuantit%C3%A0> rdf:type owl:NamedIndividual ,
+                                                                                           orl:TipoComplementoIIPreposizioneVolgare ;
+                                                                                  rdfs:label "PreposizioneVolgareDiQuantità"@en .
 
 
 #################################################################
