@@ -1,0 +1,2634 @@
+@prefix : <https://dantenetwork.it/ontology/orl/current/> .
+@prefix crm: <http://erlangen-crm.org/current/> .
+@prefix hdn: <https://hdn.dantenetwork.it/ontology#> .
+@prefix orl: <https://dantenetwork.it/ontology/orl/current/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix olires: <https://dantenetwork.it/ontology/olires/current/> .
+@prefix syntit: <https://dantenetwork.it/ontology/syntit/current/> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@base <https://dantenetwork.it/ontology/orl/current/> .
+
+<https://dantenetwork.it/ontology/orl/current/> rdf:type owl:Ontology ;
+                                                 rdfs:label "ORL Ontology" ;
+                                                 owl:versionInfo "orl-1.1-20221102"^^xsd:string .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://erlangen-crm.org/current/P127_has_broader_term
+crm:P127_has_broader_term rdf:type owl:ObjectProperty ;
+                          rdfs:label "P127 has broader term" .
+
+
+###  http://erlangen-crm.org/current/P148_has_component
+crm:P148_has_component rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty ;
+                       owl:inverseOf crm:P148i_is_component_of ;
+                       rdfs:label "P148 has component"@en .
+
+
+###  http://erlangen-crm.org/current/P148i_is_component_of
+crm:P148i_is_component_of rdf:type owl:ObjectProperty ;
+                          rdfs:label "P148i is component of" .
+
+
+###  http://erlangen-crm.org/current/P2_has_type
+crm:P2_has_type rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:label "P2 has type"@en .
+
+
+###  http://www.w3.org/ns/lemon/ontolex#lexicalForm
+ontolex:lexicalForm rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crm:P148_has_component ;
+                    rdfs:label "lexical form" .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoAggettivoVolgare
+orl:TipoAggettivoVolgare rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                         rdfs:domain orl:FormaAggettivoVolgare ;
+                         rdfs:range orl:TipoDellAggettivoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicaItalianoVolgare
+orl:caratteristicaItalianoVolgare rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf crm:P2_has_type ;
+                                  rdfs:domain [ rdf:type owl:Class ;
+                                                owl:unionOf ( orl:FormaItalianoVolgare
+                                                              orl:LemmaItalianoVolgare
+                                                            )
+                                              ] ;
+                                  rdfs:range orl:TipoItalianoVolgare ;
+                                  rdfs:label "caratteristica italiano volgare"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheAggettivoVolgare
+orl:caratteristicheAggettivoVolgare rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                    rdfs:domain orl:FormaAggettivoVolgare ;
+                                    rdfs:range orl:TipoAggettivoVolgare ;
+                                    rdfs:label "caratteristicheAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheArticoloVolgare
+orl:caratteristicheArticoloVolgare rdf:type owl:ObjectProperty ;
+                                   rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                   rdfs:domain orl:FormaArticoloVolgare ;
+                                   rdfs:range orl:TipoArticoloVolgare ;
+                                   rdfs:label "caratteristicheArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheAvverbioVolgare
+orl:caratteristicheAvverbioVolgare rdf:type owl:ObjectProperty ;
+                                   rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                   rdfs:domain orl:FormaAvverbioVolgare ;
+                                   rdfs:label "caratteristicheAvverbioVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheCitazioneVolgare
+orl:caratteristicheCitazioneVolgare rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                    rdfs:domain orl:FormaCitazioneVolgare ;
+                                    rdfs:range orl:TipoCitazioneVolgare ;
+                                    rdfs:label "caratteristicheCitazioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheCongiunzioneVolgare
+orl:caratteristicheCongiunzioneVolgare rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                       rdfs:domain orl:FormaCongiunzioneVolgare ;
+                                       rdfs:label "caratteristicheCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheLemmaSostantivoVolgare
+orl:caratteristicheLemmaSostantivoVolgare rdf:type owl:ObjectProperty ;
+                                          rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                          rdfs:domain orl:LemmaSostantivoVolgare ;
+                                          rdfs:range orl:TipoGenereLemmaSostantivoVolgare ;
+                                          rdfs:label "caratteristicheLemmaSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheOnomasticaVolgare
+orl:caratteristicheOnomasticaVolgare rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                     rdfs:domain orl:FormaOnomasticaVolgare ;
+                                     rdfs:range orl:TipoOnomasticaVolgare ;
+                                     rdfs:label "caratteristicheOnomasticaVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristichePreposizioneVolgare
+orl:caratteristichePreposizioneVolgare rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                       rdfs:domain orl:FormaPreposizioneVolgare ;
+                                       rdfs:range orl:TipoPreposizioneVolgare ;
+                                       rdfs:label "caratteristichePreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristichePronomeVolgare
+orl:caratteristichePronomeVolgare rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                  rdfs:domain orl:FormaPronomeVolgare ;
+                                  rdfs:range orl:TipoPronomeVolgare ;
+                                  rdfs:label "caratteristichePronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheSostantivoVolgare
+orl:caratteristicheSostantivoVolgare rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                     rdfs:domain orl:FormaSostantivoVolgare ;
+                                     rdfs:range orl:TipoSostantivoVolgare ;
+                                     rdfs:label "caratteristicheSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/caratteristicheVerboVolgare
+orl:caratteristicheVerboVolgare rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf orl:caratteristicaItalianoVolgare ;
+                                rdfs:domain orl:FormaVerboVolgare ;
+                                rdfs:range orl:TipoVerboVolgare ;
+                                rdfs:label "caratteristicheVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/classeAggettivoVolgare
+orl:classeAggettivoVolgare rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                           rdfs:domain orl:FormaAggettivoVolgare ;
+                           rdfs:range orl:TipoClasseAggettivoVolgare ;
+                           rdfs:label "classeAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/classePersonaPronomeVolgare
+orl:classePersonaPronomeVolgare rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                                rdfs:domain orl:FormaPronomeVolgare ;
+                                rdfs:range orl:TipoClassePersonaPronomeVolgare ;
+                                rdfs:label "classePersonaPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/complementoIIPreposizioneVolgare
+orl:complementoIIPreposizioneVolgare rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf orl:caratteristichePreposizioneVolgare ;
+                                     rdfs:domain orl:FormaPreposizioneVolgare ;
+                                     rdfs:range orl:TipoComplementoIIPreposizioneVolgare ;
+                                     rdfs:label "complementoIIPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/complementoIPreposizioneVolgare
+orl:complementoIPreposizioneVolgare rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf orl:caratteristichePreposizioneVolgare ;
+                                    rdfs:domain orl:FormaPreposizioneVolgare ;
+                                    rdfs:range orl:TipoComplementoIPreposizioneVolgare ;
+                                    rdfs:label "complementoIPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/conOggettoIndirettoAggettivoVolgare
+orl:conOggettoIndirettoAggettivoVolgare rdf:type owl:ObjectProperty ;
+                                        rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                                        rdfs:domain orl:FormaAggettivoVolgare ;
+                                        rdfs:range orl:AggettivoVolgareConOggettoIndiretto ;
+                                        rdfs:label "conOggettoIndirettoAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/coniugazioneVerboVolgare
+orl:coniugazioneVerboVolgare rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                             rdfs:domain orl:FormaVerboVolgare ;
+                             rdfs:range orl:TipoConiugazioneVerboVolgare ;
+                             rdfs:label "coniugazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/cooSubCongiunzioneVolgare
+orl:cooSubCongiunzioneVolgare rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf orl:caratteristicheCongiunzioneVolgare ;
+                              rdfs:domain orl:FormaCongiunzioneVolgare ;
+                              rdfs:range orl:TipoCooSubCongiunzioneVolgare ;
+                              rdfs:label "cooSubCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/declinazioneSostantivoVolgare
+orl:declinazioneSostantivoVolgare rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf orl:caratteristicheSostantivoVolgare ;
+                                  rdfs:domain orl:FormaSostantivoVolgare ;
+                                  rdfs:range orl:TipoDeclinazioneSostantivoVolgare ;
+                                  rdfs:label "declinazioneSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/declinazioneVerboVolgare
+orl:declinazioneVerboVolgare rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                             rdfs:domain orl:FormaVerboVolgare ;
+                             rdfs:range orl:TipoDeclinazioneVerboVolgare ;
+                             rdfs:label "declinazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/diatesiVerboVolgare
+orl:diatesiVerboVolgare rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                        rdfs:domain orl:FormaVerboVolgare ;
+                        rdfs:range orl:TipoDiatesiVerboVolgare ;
+                        rdfs:label "diatesiVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/formaPerRifPronomeVolgare
+orl:formaPerRifPronomeVolgare rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                              rdfs:domain orl:FormaPronomeVolgare ;
+                              rdfs:range orl:TipoFormaPerRifPronomeVolgare ;
+                              rdfs:label "formaPerRifPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/funzionePronomeVolgare
+orl:funzionePronomeVolgare rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                           rdfs:domain orl:FormaPronomeVolgare ;
+                           rdfs:range orl:TipoFunzionePronomeVolgare ;
+                           rdfs:label "funzionePronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/funzioneVerboVolgare
+orl:funzioneVerboVolgare rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                         rdfs:domain orl:FormaVerboVolgare ;
+                         rdfs:range orl:TipoFunzioneVerboVolgare ;
+                         rdfs:label "funzioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/genereAggettivoVolgare
+orl:genereAggettivoVolgare rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                           rdfs:domain orl:FormaAggettivoVolgare ;
+                           rdfs:range orl:TipoGenereAggettivoVolgare ;
+                           rdfs:label "genereAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/genereArticoloVolgare
+orl:genereArticoloVolgare rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf orl:caratteristicheArticoloVolgare ;
+                          rdfs:domain orl:FormaArticoloVolgare ;
+                          rdfs:label "genereArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/genereLemmaSostantivo
+orl:genereLemmaSostantivo rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf orl:caratteristicheLemmaSostantivoVolgare ;
+                          rdfs:range orl:TipoGenereLemmaSostantivoVolgare ;
+                          rdfs:label "genereLemmaSostantivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/generePronomeVolgare
+orl:generePronomeVolgare rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                         rdfs:domain orl:FormaPronomeVolgare ;
+                         rdfs:range orl:TipoGenerePronomeVolgare ;
+                         rdfs:label "generePronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/genereSostantivoVolgare
+orl:genereSostantivoVolgare rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf orl:caratteristicheSostantivoVolgare ;
+                            rdfs:domain orl:FormaSostantivoVolgare ;
+                            rdfs:range orl:TipoGenereSostantivoVolgare ;
+                            rdfs:label "genereSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/genereVerboVolgare
+orl:genereVerboVolgare rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                       rdfs:domain orl:FormaVerboVolgare ;
+                       rdfs:range orl:TipoGenereVerboVolgare ;
+                       rdfs:label "genereVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/gradoAggettivoVolgare
+orl:gradoAggettivoVolgare rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                          rdfs:domain orl:FormaAggettivoVolgare ;
+                          rdfs:range orl:TipoGradoAggettivoVolgare ;
+                          rdfs:label "gradoAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/impersonalitaVerboVolgare
+orl:impersonalitaVerboVolgare rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                              rdfs:domain orl:FormaVerboVolgare ;
+                              rdfs:range orl:VerboVolgareImpersonale ;
+                              rdfs:label "impersonalitàVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/inLocuzioneSostantivoVolgare
+orl:inLocuzioneSostantivoVolgare rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf orl:caratteristicheSostantivoVolgare ;
+                                 rdfs:domain orl:FormaSostantivoVolgare ;
+                                 rdfs:range orl:SostantivoVolgareInLocuzione ;
+                                 rdfs:label "inLocuzioneSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/numeroAggettivoVolgare
+orl:numeroAggettivoVolgare rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                           rdfs:domain orl:FormaAggettivoVolgare ;
+                           rdfs:range orl:TipoNumeroAggettivoVolgare ;
+                           rdfs:label "numeroAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/numeroArticoloVolgare
+orl:numeroArticoloVolgare rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf orl:caratteristicheArticoloVolgare ;
+                          rdfs:domain orl:FormaArticoloVolgare ;
+                          rdfs:range orl:TipoNumeroArticoloVolgare ;
+                          rdfs:label "numeroArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/numeroPronomeVolgare
+orl:numeroPronomeVolgare rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                         rdfs:domain orl:FormaPronomeVolgare ;
+                         rdfs:range orl:TipoNumeroPronomeVolgare ;
+                         rdfs:label "numeroPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/numeroSostantivoVolgare
+orl:numeroSostantivoVolgare rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf orl:caratteristicheSostantivoVolgare ;
+                            rdfs:domain orl:FormaSostantivoVolgare ;
+                            rdfs:range orl:TipoNumeroSostantivoVolgare ;
+                            rdfs:label "numeroSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/numeroVerboVolgare
+orl:numeroVerboVolgare rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                       rdfs:domain orl:FormaVerboVolgare ;
+                       rdfs:range orl:TipoNumeroVerboVolgare ;
+                       rdfs:label "numeroVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/personaVerboVolgare
+orl:personaVerboVolgare rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                        rdfs:domain orl:FormaVerboVolgare ;
+                        rdfs:range orl:TipoPersonaVerboVolgare ;
+                        rdfs:label "personaVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/riflessivitaVerboVolgare
+orl:riflessivitaVerboVolgare rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                             rdfs:domain orl:FormaVerboVolgare ;
+                             rdfs:range orl:VerboVolgareRiflessivo ;
+                             rdfs:label "riflessivitàVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/sintassiPreposizioneVolgare
+orl:sintassiPreposizioneVolgare rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf orl:caratteristichePreposizioneVolgare ;
+                                rdfs:domain orl:FormaPreposizioneVolgare ;
+                                rdfs:range orl:TipoSintassiPreposizioneVolgare ;
+                                rdfs:label "sintassiPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tempoVerboVolgare
+orl:tempoVerboVolgare rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                      rdfs:domain orl:FormaVerboVolgare ;
+                      rdfs:range orl:TipoTempoVerboVolgare ;
+                      rdfs:label "tempoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoArticoloVolgare
+orl:tipoArticoloVolgare rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf orl:caratteristicheArticoloVolgare ;
+                        rdfs:domain orl:FormaArticoloVolgare ;
+                        rdfs:range orl:TipoDellArticoloVolgare ;
+                        rdfs:label "tipoArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoAvverbioVolgare
+orl:tipoAvverbioVolgare rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf orl:caratteristicheAvverbioVolgare ;
+                        rdfs:domain orl:FormaAvverbioVolgare ;
+                        rdfs:range orl:TipoAvverbioVolgare ;
+                        rdfs:label "tipoAvverbioVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoCitazioneVolgare
+orl:tipoCitazioneVolgare rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf orl:caratteristicheCitazioneVolgare ;
+                         rdfs:domain orl:FormaCitazioneVolgare ;
+                         rdfs:range orl:TipoDellaCitazioneVolgare ;
+                         rdfs:label "tipoCitazioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoCongiunzioneVolgare
+orl:tipoCongiunzioneVolgare rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf orl:caratteristicheCongiunzioneVolgare ;
+                            rdfs:domain orl:FormaCongiunzioneVolgare ;
+                            rdfs:range orl:TipoDellaCongiunzioneVolgare ;
+                            rdfs:label "tipoCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoCoordinativaCongiunzioneVolgare
+orl:tipoCoordinativaCongiunzioneVolgare rdf:type owl:ObjectProperty ;
+                                        rdfs:subPropertyOf orl:caratteristicheCongiunzioneVolgare ;
+                                        rdfs:domain orl:FormaCongiunzioneVolgare ;
+                                        rdfs:range orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                        rdfs:label "tipoCoordinativaCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoDiComplementoAggettivoVolgare
+orl:tipoDiComplementoAggettivoVolgare rdf:type owl:ObjectProperty ;
+                                      rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                                      rdfs:domain orl:FormaAggettivoVolgare ;
+                                      rdfs:range orl:TipoDiComplementoAggettivoVolgare ;
+                                      rdfs:label "tipoDiComplementoAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoDiFraseAggettivoVolgare
+orl:tipoDiFraseAggettivoVolgare rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf orl:caratteristicheAggettivoVolgare ;
+                                rdfs:domain orl:FormaAggettivoVolgare ;
+                                rdfs:range orl:TipoDiFraseAggettivoVolgare ;
+                                rdfs:label "tipoDiFraseAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoIDellaPreposizioneVolgare
+orl:tipoIDellaPreposizioneVolgare rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf orl:caratteristichePreposizioneVolgare ;
+                                  rdfs:domain orl:FormaPreposizioneVolgare ;
+                                  rdfs:range orl:TipoIDellaPreposizioneVolgare ;
+                                  rdfs:label "tipoIDellaPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoIIDellaPreposizioneVolgare
+orl:tipoIIDellaPreposizioneVolgare rdf:type owl:ObjectProperty ;
+                                   rdfs:subPropertyOf orl:caratteristichePreposizioneVolgare ;
+                                   rdfs:domain orl:FormaPreposizioneVolgare ;
+                                   rdfs:range orl:TipoIIDellaPreposizioneVolgare ;
+                                   rdfs:label "tipoIIDellaPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoOnomasticaVolgare
+orl:tipoOnomasticaVolgare rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf orl:caratteristicheOnomasticaVolgare ;
+                          rdfs:domain orl:FormaOnomasticaVolgare ;
+                          rdfs:range orl:TipoDellOnomasticaVolgare ;
+                          rdfs:label "tipoOnomasticaVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoPronomeVolgare
+orl:tipoPronomeVolgare rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                       rdfs:domain orl:FormaPronomeVolgare ;
+                       rdfs:range orl:TipoDelPronomeVolgare ;
+                       rdfs:label "tipoPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoRiflessiviPronomeVolgare
+orl:tipoRiflessiviPronomeVolgare rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf orl:caratteristichePronomeVolgare ;
+                                 rdfs:domain orl:FormaPronomeVolgare ;
+                                 rdfs:range orl:TipoRiflessiviDelPronomeVolgare ;
+                                 rdfs:label "tipoRiflessiviPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/tipoSubordinativaCongiunzioneVolgare
+orl:tipoSubordinativaCongiunzioneVolgare rdf:type owl:ObjectProperty ;
+                                         rdfs:subPropertyOf orl:caratteristicheCongiunzioneVolgare ;
+                                         rdfs:domain orl:FormaCongiunzioneVolgare ;
+                                         rdfs:range orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                         rdfs:label "tipoSubordinativaCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/transitivitaVerboVolgare
+orl:transitivitaVerboVolgare rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf orl:caratteristicheVerboVolgare ;
+                             rdfs:domain orl:FormaVerboVolgare ;
+                             rdfs:range orl:TipoTransitivitaVerboVolgare ;
+                             rdfs:label "transitivitàVerboVolgare"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://erlangen-crm.org/current/E33_Linguistic_Object
+crm:E33_Linguistic_Object rdf:type owl:Class ;
+                          rdfs:label "E33 Linguistic Object"@en .
+
+
+###  http://erlangen-crm.org/current/E55_Type
+crm:E55_Type rdf:type owl:Class ;
+             rdfs:subClassOf owl:Thing ;
+             rdfs:label "E55 Type" .
+
+
+###  http://erlangen-crm.org/current/E73_Information_Object
+crm:E73_Information_Object rdf:type owl:Class ;
+                           rdfs:label "E73 Information Object" .
+
+
+###  http://www.w3.org/ns/lemon/ontolex#Form
+ontolex:Form rdf:type owl:Class ;
+             rdfs:subClassOf olires:SyntacticEntity ;
+             rdfs:label "Form"@en .
+
+
+###  http://www.w3.org/ns/lemon/ontolex#LexicalEntry
+ontolex:LexicalEntry rdf:type owl:Class ;
+                     rdfs:subClassOf crm:E73_Information_Object .
+
+
+###  https://dantenetwork.it/ontology/olires/current/SyntacticEntity
+olires:SyntacticEntity rdf:type owl:Class ;
+                       rdfs:subClassOf crm:E33_Linguistic_Object ;
+                       rdfs:label "Syntactic Entity" .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConOggettoIndiretto
+orl:AggettivoVolgareConOggettoIndiretto rdf:type owl:Class ;
+                                        rdfs:subClassOf orl:TipoAggettivoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaAggettivoVolgare
+orl:FormaAggettivoVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:FormaItalianoVolgare ;
+                          rdfs:label "FormaAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaArticoloVolgare
+orl:FormaArticoloVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:FormaItalianoVolgare ;
+                         rdfs:label "FormaArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaAvverbioVolgare
+orl:FormaAvverbioVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:FormaItalianoVolgare ;
+                         rdfs:label "FormaAvverbioVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaCitazioneVolgare
+orl:FormaCitazioneVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:FormaItalianoVolgare ;
+                          rdfs:label "FormaCitazioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaCongiunzioneVolgare
+orl:FormaCongiunzioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaItalianoVolgare ;
+                             rdfs:label "FormaCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaInteriezioneVolgare
+orl:FormaInteriezioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaItalianoVolgare ;
+                             rdfs:label "FormaInteriezioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaItalianoVolgare
+orl:FormaItalianoVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf ontolex:Form ;
+                         rdfs:label "Forma italiano volgare"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaOnomasticaVolgare
+orl:FormaOnomasticaVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:FormaItalianoVolgare ;
+                           rdfs:label "FormaOnomasticaVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaPreposizioneVolgare
+orl:FormaPreposizioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaItalianoVolgare ;
+                             rdfs:label "FormaPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaPronomeVolgare
+orl:FormaPronomeVolgare rdf:type owl:Class ;
+                        rdfs:subClassOf orl:FormaItalianoVolgare ;
+                        rdfs:label "FormaPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaSostantivoVolgare
+orl:FormaSostantivoVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:FormaItalianoVolgare ;
+                           rdfs:label "FormaSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FormaVerboVolgare
+orl:FormaVerboVolgare rdf:type owl:Class ;
+                      rdfs:subClassOf orl:FormaItalianoVolgare ;
+                      rdfs:label "FormaVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaAggettivoVolgare
+orl:LemmaAggettivoVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:FormaAggettivoVolgare ,
+                                          orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaArticoloVolgare
+orl:LemmaArticoloVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:FormaArticoloVolgare ,
+                                         orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaAvverbioVolgare
+orl:LemmaAvverbioVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:FormaAvverbioVolgare ,
+                                         orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaCitazioneVolgare
+orl:LemmaCitazioneVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:FormaCitazioneVolgare ,
+                                          orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaCongiunzioneVolgare
+orl:LemmaCongiunzioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaCongiunzioneVolgare ,
+                                             orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaInteriezioneVolgare
+orl:LemmaInteriezioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaInteriezioneVolgare ,
+                                             orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaItalianoVolgare
+orl:LemmaItalianoVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:FormaItalianoVolgare ;
+                         rdfs:label "Lemma italiano volgare"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaOnomasticaVolgare
+orl:LemmaOnomasticaVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:FormaOnomasticaVolgare ,
+                                           orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaPreposizioneVolgare
+orl:LemmaPreposizioneVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:FormaPreposizioneVolgare ,
+                                             orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaPronomeVolgare
+orl:LemmaPronomeVolgare rdf:type owl:Class ;
+                        rdfs:subClassOf orl:FormaPronomeVolgare ,
+                                        orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaSostantivoVolgare
+orl:LemmaSostantivoVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:FormaSostantivoVolgare ,
+                                           orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/LemmaVerboVolgare
+orl:LemmaVerboVolgare rdf:type owl:Class ;
+                      rdfs:subClassOf orl:FormaVerboVolgare ,
+                                      orl:LemmaItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/SostantivoVolgareInLocuzione
+orl:SostantivoVolgareInLocuzione rdf:type owl:Class ;
+                                 rdfs:subClassOf orl:TipoSostantivoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoAggettivoVolgare
+orl:TipoAggettivoVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:TipoItalianoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoArticoloVolgare
+orl:TipoArticoloVolgare rdf:type owl:Class ;
+                        rdfs:subClassOf orl:TipoItalianoVolgare ;
+                        rdfs:label "TipoArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoAvverbioVolgare
+orl:TipoAvverbioVolgare rdf:type owl:Class ;
+                        rdfs:subClassOf orl:TipoItalianoVolgare ;
+                        rdfs:label "TipoAvverbioVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoCitazioneVolgare
+orl:TipoCitazioneVolgare rdf:type owl:Class ;
+                         rdfs:subClassOf orl:TipoItalianoVolgare ;
+                         rdfs:label "TipoCitazioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoClasseAggettivoVolgare
+orl:TipoClasseAggettivoVolgare rdf:type owl:Class ;
+                               rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                               rdfs:label "TipoClasseAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoClassePersonaPronomeVolgare
+orl:TipoClassePersonaPronomeVolgare rdf:type owl:Class ;
+                                    rdfs:subClassOf orl:TipoPronomeVolgare ;
+                                    rdfs:label "TipoClassePersonaPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoComplementoIIPreposizioneVolgare
+orl:TipoComplementoIIPreposizioneVolgare rdf:type owl:Class ;
+                                         rdfs:subClassOf orl:TipoPreposizioneVolgare ;
+                                         rdfs:label "TipoComplementoIIPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoComplementoIPreposizioneVolgare
+orl:TipoComplementoIPreposizioneVolgare rdf:type owl:Class ;
+                                        rdfs:subClassOf orl:TipoPreposizioneVolgare ;
+                                        rdfs:label "TipoComplementoIPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoCongiunzioneVolgare
+orl:TipoCongiunzioneVolgare rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoItalianoVolgare ;
+                            rdfs:label "TipoCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoConiugazioneVerboVolgare
+orl:TipoConiugazioneVerboVolgare rdf:type owl:Class ;
+                                 rdfs:subClassOf orl:TipoVerboVolgare ;
+                                 rdfs:label "TipoConiugazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoCooSubCongiunzioneVolgare
+orl:TipoCooSubCongiunzioneVolgare rdf:type owl:Class ;
+                                  rdfs:subClassOf orl:TipoCongiunzioneVolgare ;
+                                  rdfs:label "TipoCooSubCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDeclinazioneSostantivoVolgare
+orl:TipoDeclinazioneSostantivoVolgare rdf:type owl:Class ;
+                                      rdfs:subClassOf orl:TipoSostantivoVolgare ;
+                                      rdfs:label "TipoDeclinazioneSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDeclinazioneVerboVolgare
+orl:TipoDeclinazioneVerboVolgare rdf:type owl:Class ;
+                                 rdfs:subClassOf orl:TipoVerboVolgare ;
+                                 rdfs:label "TipoDeclinazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDelPronomeVolgare
+orl:TipoDelPronomeVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:TipoPronomeVolgare ;
+                          rdfs:label "TipoDelPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellAggettivoVolgare
+orl:TipoDellAggettivoVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                             rdfs:label "TipoDellAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellArticoloVolgare
+orl:TipoDellArticoloVolgare rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoArticoloVolgare ;
+                            rdfs:label "TipoDellArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellAvverbioVolgare
+orl:TipoDellAvverbioVolgare rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoAvverbioVolgare ;
+                            rdfs:label "TipoDellAvverbioVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellOnomasticaVolgare
+orl:TipoDellOnomasticaVolgare rdf:type owl:Class ;
+                              rdfs:subClassOf orl:TipoOnomasticaVolgare ;
+                              rdfs:label "TipoDellOnomasticaVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellaCitazioneVolgare
+orl:TipoDellaCitazioneVolgare rdf:type owl:Class ;
+                              rdfs:subClassOf orl:TipoCitazioneVolgare ;
+                              rdfs:label "TipoDellaCitazioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellaCongiunzioneVolgare
+orl:TipoDellaCongiunzioneVolgare rdf:type owl:Class ;
+                                 rdfs:subClassOf orl:TipoCongiunzioneVolgare ;
+                                 rdfs:label "TipoDellaCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellaCoordinativaCongiunzioneVolgare
+orl:TipoDellaCoordinativaCongiunzioneVolgare rdf:type owl:Class ;
+                                             rdfs:subClassOf orl:TipoCongiunzioneVolgare ;
+                                             rdfs:label "TipoDellaCoordinativaCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDellaSubordinativaCongiunzioneVolgare
+orl:TipoDellaSubordinativaCongiunzioneVolgare rdf:type owl:Class ;
+                                              rdfs:subClassOf orl:TipoCongiunzioneVolgare ;
+                                              rdfs:label "TipoDellaSubordinativaCongiunzioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDiComplementoAggettivoVolgare
+orl:TipoDiComplementoAggettivoVolgare rdf:type owl:Class ;
+                                      rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                                      rdfs:label "TipoDiComplementoAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDiFraseAggettivoVolgare
+orl:TipoDiFraseAggettivoVolgare rdf:type owl:Class ;
+                                rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                                rdfs:label "TipoDiFraseAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoDiatesiVerboVolgare
+orl:TipoDiatesiVerboVolgare rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoVerboVolgare ;
+                            rdfs:label "TipoDiatesiVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoFormaPerRifPronomeVolgare
+orl:TipoFormaPerRifPronomeVolgare rdf:type owl:Class ;
+                                  rdfs:subClassOf orl:TipoPronomeVolgare ;
+                                  rdfs:label "TipoFormaPerRifPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoFunzionePronomeVolgare
+orl:TipoFunzionePronomeVolgare rdf:type owl:Class ;
+                               rdfs:subClassOf orl:TipoPronomeVolgare ;
+                               rdfs:label "TipoFunzionePronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoFunzioneVerboVolgare
+orl:TipoFunzioneVerboVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:TipoVerboVolgare ;
+                             rdfs:label "TipoFunzioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGenereAggettivoVolgare
+orl:TipoGenereAggettivoVolgare rdf:type owl:Class ;
+                               rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                               rdfs:label "TipoGenereAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGenereArticoloVolgare
+orl:TipoGenereArticoloVolgare rdf:type owl:Class ;
+                              rdfs:subClassOf orl:TipoArticoloVolgare ;
+                              rdfs:label "TipoGenereArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGenereLemmaSostantivoVolgare
+orl:TipoGenereLemmaSostantivoVolgare rdf:type owl:Class ;
+                                     rdfs:subClassOf orl:TipoSostantivoVolgare ;
+                                     rdfs:label "TipoGenereLemmaSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGenerePronomeVolgare
+orl:TipoGenerePronomeVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:TipoPronomeVolgare ;
+                             rdfs:label "TipoGenerePronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGenereSostantivoVolgare
+orl:TipoGenereSostantivoVolgare rdf:type owl:Class ;
+                                rdfs:subClassOf orl:TipoSostantivoVolgare ;
+                                rdfs:label "TipoGenereSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGenereVerboVolgare
+orl:TipoGenereVerboVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:TipoVerboVolgare ;
+                           rdfs:label "TipoGenereVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoGradoAggettivoVolgare
+orl:TipoGradoAggettivoVolgare rdf:type owl:Class ;
+                              rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                              rdfs:label "TipoGradoAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoIDellaPreposizioneVolgare
+orl:TipoIDellaPreposizioneVolgare rdf:type owl:Class ;
+                                  rdfs:subClassOf orl:TipoPreposizioneVolgare ;
+                                  rdfs:label "TipoIDellaPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoIIDellaPreposizioneVolgare
+orl:TipoIIDellaPreposizioneVolgare rdf:type owl:Class ;
+                                   rdfs:subClassOf orl:TipoPreposizioneVolgare ;
+                                   rdfs:label "TipoIIDellaPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoItalianoVolgare
+orl:TipoItalianoVolgare rdf:type owl:Class ;
+                        rdfs:subClassOf crm:E55_Type ;
+                        rdfs:label "Tipo italiano volgare"@it .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoNumeroAggettivoVolgare
+orl:TipoNumeroAggettivoVolgare rdf:type owl:Class ;
+                               rdfs:subClassOf orl:TipoAggettivoVolgare ;
+                               rdfs:label "TipoNumeroAggettivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoNumeroArticoloVolgare
+orl:TipoNumeroArticoloVolgare rdf:type owl:Class ;
+                              rdfs:subClassOf orl:TipoArticoloVolgare ;
+                              rdfs:label "TipoNumeroArticoloVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoNumeroPronomeVolgare
+orl:TipoNumeroPronomeVolgare rdf:type owl:Class ;
+                             rdfs:subClassOf orl:TipoPronomeVolgare ;
+                             rdfs:label "TipoNumeroPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoNumeroSostantivoVolgare
+orl:TipoNumeroSostantivoVolgare rdf:type owl:Class ;
+                                rdfs:subClassOf orl:TipoSostantivoVolgare ;
+                                rdfs:label "TipoNumeroSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoNumeroVerboVolgare
+orl:TipoNumeroVerboVolgare rdf:type owl:Class ;
+                           rdfs:subClassOf orl:TipoVerboVolgare ;
+                           rdfs:label "TipoNumeroVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoOnomasticaVolgare
+orl:TipoOnomasticaVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:TipoItalianoVolgare ;
+                          rdfs:label "TipoOnomasticaVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoPersonaVerboVolgare
+orl:TipoPersonaVerboVolgare rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoVerboVolgare ;
+                            rdfs:label "TipoPersonaVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoPreposizioneVolgare
+orl:TipoPreposizioneVolgare rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoItalianoVolgare ;
+                            rdfs:label "TipoPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoPronomeVolgare
+orl:TipoPronomeVolgare rdf:type owl:Class ;
+                       rdfs:subClassOf orl:TipoItalianoVolgare ;
+                       rdfs:label "TipoPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoRiflessiviDelPronomeVolgare
+orl:TipoRiflessiviDelPronomeVolgare rdf:type owl:Class ;
+                                    rdfs:subClassOf orl:TipoPronomeVolgare ;
+                                    rdfs:label "TipoRiflessiviDelPronomeVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoSintassiPreposizioneVolgare
+orl:TipoSintassiPreposizioneVolgare rdf:type owl:Class ;
+                                    rdfs:subClassOf orl:TipoPreposizioneVolgare ;
+                                    rdfs:label "TipoSintassiPreposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoSostantivoVolgare
+orl:TipoSostantivoVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:TipoItalianoVolgare ;
+                          rdfs:label "TipoSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoTempoVerboVolgare
+orl:TipoTempoVerboVolgare rdf:type owl:Class ;
+                          rdfs:subClassOf orl:TipoVerboVolgare ;
+                          rdfs:label "TipoTempoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoTransitivitaVerboVolgare
+orl:TipoTransitivitaVerboVolgare rdf:type owl:Class ;
+                                 rdfs:subClassOf orl:TipoVerboVolgare ;
+                                 rdfs:label "TipoTransitivitàVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TipoVerboVolgare
+orl:TipoVerboVolgare rdf:type owl:Class ;
+                     rdfs:subClassOf orl:TipoItalianoVolgare ;
+                     rdfs:label "TipoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareImpersonale
+orl:VerboVolgareImpersonale rdf:type owl:Class ;
+                            rdfs:subClassOf orl:TipoVerboVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareRiflessivo
+orl:VerboVolgareRiflessivo rdf:type owl:Class ;
+                           rdfs:subClassOf orl:TipoVerboVolgare .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoDimostrativoVolgare
+orl:AggettivoDimostrativoVolgare rdf:type owl:NamedIndividual ,
+                                          orl:TipoDellAggettivoVolgare ;
+                                 rdfs:label "AggettivoDimostrativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoEsclamativoVolgare
+orl:AggettivoEsclamativoVolgare rdf:type owl:NamedIndividual ,
+                                         orl:TipoDellAggettivoVolgare ;
+                                rdfs:label "AggettivoEsclamativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoIndefinitoVolgare
+orl:AggettivoIndefinitoVolgare rdf:type owl:NamedIndividual ,
+                                        orl:TipoDellAggettivoVolgare ;
+                               rdfs:label "AggettivoIndefinitoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoInterrogativoVolgare
+orl:AggettivoInterrogativoVolgare rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellAggettivoVolgare ;
+                                  rdfs:label "AggettivoInterrogativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoNumeraleVolgare
+orl:AggettivoNumeraleVolgare rdf:type owl:NamedIndividual ,
+                                      orl:TipoDellAggettivoVolgare ;
+                             rdfs:label "AggettivoNumeraleVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoPossessivoVolgare
+orl:AggettivoPossessivoVolgare rdf:type owl:NamedIndividual ,
+                                        orl:TipoDellAggettivoVolgare ;
+                               rdfs:label "AggettivoPossessivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoQualificativoVolgare
+orl:AggettivoQualificativoVolgare rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellAggettivoVolgare ;
+                                  rdfs:label "AggettivoQualificativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoRelativoVolgare
+orl:AggettivoRelativoVolgare rdf:type owl:NamedIndividual ,
+                                      orl:TipoDellAggettivoVolgare ;
+                             rdfs:label "AggettivoRelativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareComparativoDiMaggioranza
+orl:AggettivoVolgareComparativoDiMaggioranza rdf:type owl:NamedIndividual ,
+                                                      orl:TipoGradoAggettivoVolgare ;
+                                             rdfs:label "AggettivoVolgareComparativoDiMaggioranza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareComparativoDiMinoranza
+orl:AggettivoVolgareComparativoDiMinoranza rdf:type owl:NamedIndividual ,
+                                                    orl:TipoGradoAggettivoVolgare ;
+                                           rdfs:label "AggettivoVolgareComparativoDiMinoranza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareComparativodiUguaglianza
+orl:AggettivoVolgareComparativodiUguaglianza rdf:type owl:NamedIndividual ,
+                                                      orl:TipoGradoAggettivoVolgare ;
+                                             rdfs:label "AggettivoVolgareComparativodiUguaglianza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConInfinitoRettoDaA
+orl:AggettivoVolgareConInfinitoRettoDaA rdf:type owl:NamedIndividual ,
+                                                 orl:TipoDiFraseAggettivoVolgare ;
+                                        rdfs:label "AggettivoVolgareConInfinitoRettoDaA"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConInfinitoRettoDaDA
+orl:AggettivoVolgareConInfinitoRettoDaDA rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDiFraseAggettivoVolgare ;
+                                         rdfs:label "AggettivoVolgareConInfinitoRettoDaDA"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConInfinitoRettoDaDI
+orl:AggettivoVolgareConInfinitoRettoDaDI rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDiFraseAggettivoVolgare ;
+                                         rdfs:label "AggettivoVolgareConInfinitoRettoDaDI"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConInfinitoRettoDaPER
+orl:AggettivoVolgareConInfinitoRettoDaPER rdf:type owl:NamedIndividual ,
+                                                   orl:TipoDiFraseAggettivoVolgare ;
+                                          rdfs:label "AggettivoVolgareConInfinitoRettoDaPER"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConInfinitoRettoDaSE
+orl:AggettivoVolgareConInfinitoRettoDaSE rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDiFraseAggettivoVolgare ;
+                                         rdfs:label "AggettivoVolgareConInfinitoRettoDaSE"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConOggettoIndiretto
+orl:AggettivoVolgareConOggettoIndiretto rdf:type owl:NamedIndividual ,
+                                                 orl:AggettivoVolgareConOggettoIndiretto .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConSubordinataAlCongiuntivo
+orl:AggettivoVolgareConSubordinataAlCongiuntivo rdf:type owl:NamedIndividual ,
+                                                         orl:TipoDiFraseAggettivoVolgare ;
+                                                rdfs:label "AggettivoVolgareConSubordinataAlCongiuntivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareConSubordinataAllIndicativo
+orl:AggettivoVolgareConSubordinataAllIndicativo rdf:type owl:NamedIndividual ,
+                                                         orl:TipoDiFraseAggettivoVolgare ;
+                                                rdfs:label "AggettivoVolgareConSubordinataAllIndicativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareFemminile
+orl:AggettivoVolgareFemminile rdf:type owl:NamedIndividual ,
+                                       orl:TipoGenereAggettivoVolgare ;
+                              rdfs:label "AggettivoVolgareFemminile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzione
+orl:AggettivoVolgareInLocuzione rdf:type owl:NamedIndividual ,
+                                         orl:TipoDellAggettivoVolgare ;
+                                rdfs:label "AggettivoVolgareInLocuzione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpAInfinito
+orl:AggettivoVolgareInLocuzioneImpAInfinito rdf:type owl:NamedIndividual ,
+                                                     orl:TipoDiFraseAggettivoVolgare ;
+                                            rdfs:label "AggettivoVolgareInLocuzioneImpAInfinito"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpCheCongiuntivo
+orl:AggettivoVolgareInLocuzioneImpCheCongiuntivo rdf:type owl:NamedIndividual ,
+                                                          orl:TipoDiFraseAggettivoVolgare ;
+                                                 rdfs:label "AggettivoVolgareInLocuzioneImpCheCongiuntivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpCheIndicativo
+orl:AggettivoVolgareInLocuzioneImpCheIndicativo rdf:type owl:NamedIndividual ,
+                                                         orl:TipoDiFraseAggettivoVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpComeIndicativo
+orl:AggettivoVolgareInLocuzioneImpComeIndicativo rdf:type owl:NamedIndividual ,
+                                                          orl:TipoDiFraseAggettivoVolgare ;
+                                                 rdfs:label "AggettivoVolgareInLocuzioneImpComeIndicativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpInfinito
+orl:AggettivoVolgareInLocuzioneImpInfinito rdf:type owl:NamedIndividual ,
+                                                    orl:TipoDiFraseAggettivoVolgare ;
+                                           rdfs:label "AggettivoVolgareInLocuzioneImpInfinito"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpPercheCongiuntivo
+orl:AggettivoVolgareInLocuzioneImpPercheCongiuntivo rdf:type owl:NamedIndividual ,
+                                                             orl:TipoDiFraseAggettivoVolgare ;
+                                                    rdfs:label "AggettivoVolgareInLocuzioneImpPerchéCongiuntivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpQuandoIndicativo
+orl:AggettivoVolgareInLocuzioneImpQuandoIndicativo rdf:type owl:NamedIndividual ,
+                                                            orl:TipoDiFraseAggettivoVolgare ;
+                                                   rdfs:label "AggettivoVolgareInLocuzioneImpQuandoIndicativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpSeCongiuntivo
+orl:AggettivoVolgareInLocuzioneImpSeCongiuntivo rdf:type owl:NamedIndividual ,
+                                                         orl:TipoDiFraseAggettivoVolgare ;
+                                                rdfs:label "AggettivoVolgareInLocuzioneImpSeCongiuntivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareInLocuzioneImpSeIndicativo
+orl:AggettivoVolgareInLocuzioneImpSeIndicativo rdf:type owl:NamedIndividual ,
+                                                        orl:TipoDiFraseAggettivoVolgare ;
+                                               rdfs:label "AggettivoVolgareInLocuzioneImpSeIndicativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaA
+orl:AggettivoVolgareIntrodottoDaA rdf:type owl:NamedIndividual ,
+                                           orl:TipoDiComplementoAggettivoVolgare ;
+                                  rdfs:label "AggettivoVolgareIntrodottoDaA"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaCON
+orl:AggettivoVolgareIntrodottoDaCON rdf:type owl:NamedIndividual ,
+                                             orl:TipoDiComplementoAggettivoVolgare ;
+                                    rdfs:label "AggettivoVolgareIntrodottoDaCON"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaCONTRO
+orl:AggettivoVolgareIntrodottoDaCONTRO rdf:type owl:NamedIndividual ,
+                                                orl:TipoDiComplementoAggettivoVolgare ;
+                                       rdfs:label "AggettivoVolgareIntrodottoDaCONTRO"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaDA
+orl:AggettivoVolgareIntrodottoDaDA rdf:type owl:NamedIndividual ,
+                                            orl:TipoDiComplementoAggettivoVolgare ;
+                                   rdfs:label "AggettivoVolgareIntrodottoDaDA"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaDI
+orl:AggettivoVolgareIntrodottoDaDI rdf:type owl:NamedIndividual ,
+                                            orl:TipoDiComplementoAggettivoVolgare ;
+                                   rdfs:label "AggettivoVolgareIntrodottoDaDI"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaDINANZI
+orl:AggettivoVolgareIntrodottoDaDINANZI rdf:type owl:NamedIndividual ,
+                                                 orl:TipoDiComplementoAggettivoVolgare ;
+                                        rdfs:label "AggettivoVolgareIntrodottoDaDINANZI"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaIN
+orl:AggettivoVolgareIntrodottoDaIN rdf:type owl:NamedIndividual ,
+                                            orl:TipoDiComplementoAggettivoVolgare ;
+                                   rdfs:label "AggettivoVolgareIntrodottoDaIN"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaPER
+orl:AggettivoVolgareIntrodottoDaPER rdf:type owl:NamedIndividual ,
+                                             orl:TipoDiComplementoAggettivoVolgare ;
+                                    rdfs:label "AggettivoVolgareIntrodottoDaPER"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaPreposizione
+orl:AggettivoVolgareIntrodottoDaPreposizione rdf:type owl:NamedIndividual ,
+                                                      orl:TipoDiComplementoAggettivoVolgare ;
+                                             rdfs:label "AggettivoVolgareIntrodottoDaPreposizione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaSOPRA
+orl:AggettivoVolgareIntrodottoDaSOPRA rdf:type owl:NamedIndividual ,
+                                               orl:TipoDiComplementoAggettivoVolgare ;
+                                      rdfs:label "AggettivoVolgareIntrodottoDaSOPRA"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaSOTTO
+orl:AggettivoVolgareIntrodottoDaSOTTO rdf:type owl:NamedIndividual ,
+                                               orl:TipoDiComplementoAggettivoVolgare ;
+                                      rdfs:label "AggettivoVolgareIntrodottoDaSOTTO"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaSU
+orl:AggettivoVolgareIntrodottoDaSU rdf:type owl:NamedIndividual ,
+                                            orl:TipoDiComplementoAggettivoVolgare ;
+                                   rdfs:label "AggettivoVolgareIntrodottoDaSU"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaTRA
+orl:AggettivoVolgareIntrodottoDaTRA rdf:type owl:NamedIndividual ,
+                                             orl:TipoDiComplementoAggettivoVolgare ;
+                                    rdfs:label "AggettivoVolgareIntrodottoDaTRA"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareIntrodottoDaVERSO
+orl:AggettivoVolgareIntrodottoDaVERSO rdf:type owl:NamedIndividual ,
+                                               orl:TipoDiComplementoAggettivoVolgare ;
+                                      rdfs:label "AggettivoVolgareIntrodottoDaVERSO"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareMaschile
+orl:AggettivoVolgareMaschile rdf:type owl:NamedIndividual ,
+                                      orl:TipoGenereAggettivoVolgare ;
+                             rdfs:label "AggettivoVolgareMaschile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareOggettoInd
+orl:AggettivoVolgareOggettoInd rdf:type owl:NamedIndividual ,
+                                        orl:TipoDiComplementoAggettivoVolgare ;
+                               rdfs:label "AggettivoVolgareOggettoInd"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareOggettoIndComplConDI
+orl:AggettivoVolgareOggettoIndComplConDI rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDiComplementoAggettivoVolgare ;
+                                         rdfs:label "AggettivoVolgareOggettoIndComplConDI"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareOggettoIndPronom
+orl:AggettivoVolgareOggettoIndPronom rdf:type owl:NamedIndividual ,
+                                              orl:TipoDiComplementoAggettivoVolgare ;
+                                     rdfs:label "AggettivoVolgareOggettoIndPronom"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgarePlurale
+orl:AggettivoVolgarePlurale rdf:type owl:NamedIndividual ,
+                                     orl:TipoNumeroAggettivoVolgare ;
+                            rdfs:label "AggettivoVolgarePlurale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgarePrimaClasse
+orl:AggettivoVolgarePrimaClasse rdf:type owl:NamedIndividual ,
+                                         orl:TipoClasseAggettivoVolgare ;
+                                rdfs:label "AggettivoVolgarePrimaClasse"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareSecondaClasse
+orl:AggettivoVolgareSecondaClasse rdf:type owl:NamedIndividual ,
+                                           orl:TipoClasseAggettivoVolgare ;
+                                  rdfs:label "AggettivoVolgareSecondaClasse"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareSingolare
+orl:AggettivoVolgareSingolare rdf:type owl:NamedIndividual ,
+                                       orl:TipoNumeroAggettivoVolgare ;
+                              rdfs:label "AggettivoVolgareSingolare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareSuperlativoAssoluto
+orl:AggettivoVolgareSuperlativoAssoluto rdf:type owl:NamedIndividual ,
+                                                 orl:TipoGradoAggettivoVolgare ;
+                                        rdfs:label "AggettivoVolgareSuperlativoAssoluto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AggettivoVolgareSuperlativoRelativo
+orl:AggettivoVolgareSuperlativoRelativo rdf:type owl:NamedIndividual ,
+                                                 orl:TipoGradoAggettivoVolgare ;
+                                        rdfs:label "AggettivoVolgareSuperlativoRelativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ArticoloVolgareDeterminativo
+orl:ArticoloVolgareDeterminativo rdf:type owl:NamedIndividual ,
+                                          orl:TipoDellArticoloVolgare ;
+                                 rdfs:label "ArticoloVolgareDeterminativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ArticoloVolgareFemminile
+orl:ArticoloVolgareFemminile rdf:type owl:NamedIndividual ,
+                                      orl:TipoGenereArticoloVolgare ;
+                             rdfs:label "ArticoloVolgareFemminile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ArticoloVolgareIndeterminativo
+orl:ArticoloVolgareIndeterminativo rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellArticoloVolgare ;
+                                   rdfs:label "ArticoloVolgareIndeterminativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ArticoloVolgareMaschile
+orl:ArticoloVolgareMaschile rdf:type owl:NamedIndividual ,
+                                     orl:TipoGenereArticoloVolgare ;
+                            rdfs:label "ArticoloVolgareMaschile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ArticoloVolgarePlurale
+orl:ArticoloVolgarePlurale rdf:type owl:NamedIndividual ,
+                                    orl:TipoNumeroArticoloVolgare ;
+                           rdfs:label "ArticoloVolgarePlurale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ArticoloVolgareSingolare
+orl:ArticoloVolgareSingolare rdf:type owl:NamedIndividual ,
+                                      orl:TipoNumeroArticoloVolgare ;
+                             rdfs:label "ArticoloVolgareSingolare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareAlComparativoDiMaggioranza
+orl:AvverbioVolgareAlComparativoDiMaggioranza rdf:type owl:NamedIndividual ,
+                                                       orl:TipoDellAvverbioVolgare ;
+                                              rdfs:label "AvverbioVolgareAlComparativoDiMaggioranza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareAlComparativoDiMinoranza
+orl:AvverbioVolgareAlComparativoDiMinoranza rdf:type owl:NamedIndividual ,
+                                                     orl:TipoDellAvverbioVolgare ;
+                                            rdfs:label "AvverbioVolgareAlComparativoDiMinoranza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareAlSuperlativoAssoluto
+orl:AvverbioVolgareAlSuperlativoAssoluto rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDellAvverbioVolgare ;
+                                         rdfs:label "AvverbioVolgareAlSuperlativoAssoluto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareAlSuperlativoRelativo
+orl:AvverbioVolgareAlSuperlativoRelativo rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDellAvverbioVolgare ;
+                                         rdfs:label "AvverbioVolgareAlSuperlativoRelativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareEnclitico
+orl:AvverbioVolgareEnclitico rdf:type owl:NamedIndividual ,
+                                      orl:TipoDellAvverbioVolgare ;
+                             rdfs:label "AvverbioVolgareEnclitico"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareInLocuzione
+orl:AvverbioVolgareInLocuzione rdf:type owl:NamedIndividual ,
+                                        orl:TipoDellAvverbioVolgare ;
+                               rdfs:label "AvverbioVolgareInLocuzione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareInLocuzioneSeparato
+orl:AvverbioVolgareInLocuzioneSeparato rdf:type owl:NamedIndividual ,
+                                                orl:TipoDellAvverbioVolgare ;
+                                       rdfs:label "AvverbioVolgareInLocuzioneSeparato"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/AvverbioVolgareProclitico
+orl:AvverbioVolgareProclitico rdf:type owl:NamedIndividual ,
+                                       orl:TipoDellAvverbioVolgare ;
+                              rdfs:label "AvverbioVolgareProclitico"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CitazioneEbraica
+orl:CitazioneEbraica rdf:type owl:NamedIndividual ,
+                              orl:TipoDellaCitazioneVolgare ;
+                     rdfs:label "CitazioneEbraica"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CitazioneFrancese
+orl:CitazioneFrancese rdf:type owl:NamedIndividual ,
+                               orl:TipoDellaCitazioneVolgare ;
+                      rdfs:label "CitazioneFrancese"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CitazioneGreca
+orl:CitazioneGreca rdf:type owl:NamedIndividual ,
+                            orl:TipoDellaCitazioneVolgare ;
+                   rdfs:label "CitazioneGreca"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CitazioneLatina
+orl:CitazioneLatina rdf:type owl:NamedIndividual ,
+                             orl:TipoDellaCitazioneVolgare ;
+                    rdfs:label "CitazioneLatina"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CitazioneProvenzale
+orl:CitazioneProvenzale rdf:type owl:NamedIndividual ,
+                                 orl:TipoDellaCitazioneVolgare ;
+                        rdfs:label "CitazioneProvenzale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CitazioneSpagnola
+orl:CitazioneSpagnola rdf:type owl:NamedIndividual ,
+                               orl:TipoDellaCitazioneVolgare ;
+                      rdfs:label "CitazioneSpagnola"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareAvversativa
+orl:CongiunzioneVolgareAvversativa rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                   rdfs:label "CongiunzioneVolgareAvversativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareCausali
+orl:CongiunzioneVolgareCausali rdf:type owl:NamedIndividual ,
+                                        orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                               rdfs:label "CongiunzioneVolgareCausali"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareComparativa
+orl:CongiunzioneVolgareComparativa rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                   rdfs:label "CongiunzioneVolgareComparativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareCompletivaObliqua
+orl:CongiunzioneVolgareCompletivaObliqua rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                         rdfs:label "CongiunzioneVolgareCompletivaObliqua"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareComposta
+orl:CongiunzioneVolgareComposta rdf:type owl:NamedIndividual ,
+                                         orl:TipoDellaCongiunzioneVolgare ;
+                                rdfs:label "CongiunzioneVolgareComposta"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareConcessiva
+orl:CongiunzioneVolgareConcessiva rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                  rdfs:label "CongiunzioneVolgareConcessiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareConclusiva
+orl:CongiunzioneVolgareConclusiva rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                  rdfs:label "CongiunzioneVolgareConclusiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareCondizionale
+orl:CongiunzioneVolgareCondizionale rdf:type owl:NamedIndividual ,
+                                             orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                    rdfs:label "CongiunzioneVolgareCondizionale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareConsecutiva
+orl:CongiunzioneVolgareConsecutiva rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                   rdfs:label "CongiunzioneVolgareConsecutiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareCoordinativa
+orl:CongiunzioneVolgareCoordinativa rdf:type owl:NamedIndividual ,
+                                             orl:TipoCooSubCongiunzioneVolgare ;
+                                    rdfs:label "CongiunzioneVolgareCoordinativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareCopulativa
+orl:CongiunzioneVolgareCopulativa rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                  rdfs:label "CongiunzioneVolgareCopulativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareCorrelativa
+orl:CongiunzioneVolgareCorrelativa rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                   rdfs:label "CongiunzioneVolgareCorrelativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareDichiarativa
+orl:CongiunzioneVolgareDichiarativa rdf:type owl:NamedIndividual ,
+                                             orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                    rdfs:label "CongiunzioneVolgareDichiarativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareDisgiuntiva
+orl:CongiunzioneVolgareDisgiuntiva rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                   rdfs:label "CongiunzioneVolgareDisgiuntiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareEccettuativa
+orl:CongiunzioneVolgareEccettuativa rdf:type owl:NamedIndividual ,
+                                             orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                    rdfs:label "CongiunzioneVolgareEccettuativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareEsclusiva
+orl:CongiunzioneVolgareEsclusiva rdf:type owl:NamedIndividual ,
+                                          orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                 rdfs:label "CongiunzioneVolgareEsclusiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareEsplicativa
+orl:CongiunzioneVolgareEsplicativa rdf:type owl:NamedIndividual ,
+                                            orl:TipoDellaCoordinativaCongiunzioneVolgare ;
+                                   rdfs:label "CongiunzioneVolgareEsplicativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareFinali
+orl:CongiunzioneVolgareFinali rdf:type owl:NamedIndividual ,
+                                       orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                              rdfs:label "CongiunzioneVolgareFinali"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareInterrogativa
+orl:CongiunzioneVolgareInterrogativa rdf:type owl:NamedIndividual ,
+                                              orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                     rdfs:label "CongiunzioneVolgareInterrogativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareLimitativa
+orl:CongiunzioneVolgareLimitativa rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                  rdfs:label "CongiunzioneVolgareLimitativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareLocuzione
+orl:CongiunzioneVolgareLocuzione rdf:type owl:NamedIndividual ,
+                                          orl:TipoDellaCongiunzioneVolgare ;
+                                 rdfs:label "CongiunzioneVolgareLocuzione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareLocuzioneSeparata
+orl:CongiunzioneVolgareLocuzioneSeparata rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDellaCongiunzioneVolgare ;
+                                         rdfs:label "CongiunzioneVolgareLocuzioneSeparata"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareModale
+orl:CongiunzioneVolgareModale rdf:type owl:NamedIndividual ,
+                                       orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                              rdfs:label "CongiunzioneVolgareModale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareOggettiva
+orl:CongiunzioneVolgareOggettiva rdf:type owl:NamedIndividual ,
+                                          orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                 rdfs:label "CongiunzioneVolgareOggettiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareSemplice
+orl:CongiunzioneVolgareSemplice rdf:type owl:NamedIndividual ,
+                                         orl:TipoDellaCongiunzioneVolgare ;
+                                rdfs:label "CongiunzioneVolgareSemplice"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareSoggettiva
+orl:CongiunzioneVolgareSoggettiva rdf:type owl:NamedIndividual ,
+                                           orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                  rdfs:label "CongiunzioneVolgareSoggettiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareSubordinativa
+orl:CongiunzioneVolgareSubordinativa rdf:type owl:NamedIndividual ,
+                                              orl:TipoCooSubCongiunzioneVolgare ;
+                                     rdfs:label "CongiunzioneVolgareSubordinativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/CongiunzioneVolgareTemporale
+orl:CongiunzioneVolgareTemporale rdf:type owl:NamedIndividual ,
+                                          orl:TipoDellaSubordinativaCongiunzioneVolgare ;
+                                 rdfs:label "CongiunzioneVolgareTemporale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FuturoAnterioreIndicativoVerboVolgare
+orl:FuturoAnterioreIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                                   orl:TipoTempoVerboVolgare ;
+                                          rdfs:label "FuturoAnterioreIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/FuturoSempliceIndicativoVerboVolgare
+orl:FuturoSempliceIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                                  orl:TipoTempoVerboVolgare ;
+                                         rdfs:label "FuturoSempliceIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/GenereFemminileLemmaSostantivoVolgare
+orl:GenereFemminileLemmaSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                                   orl:TipoGenereLemmaSostantivoVolgare ;
+                                          rdfs:label "GenereFemminileLemmaSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/GenereFemminileSostantivoVolgare
+orl:GenereFemminileSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                              orl:TipoGenereSostantivoVolgare ;
+                                     rdfs:label "GenereFemminileSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/GenereFemminileVerboVolgare
+orl:GenereFemminileVerboVolgare rdf:type owl:NamedIndividual ,
+                                         orl:TipoGenereVerboVolgare ;
+                                rdfs:label "GenereFemminileVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/GenereMaschileLemmaSostantivoVolgare
+orl:GenereMaschileLemmaSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                                  orl:TipoGenereLemmaSostantivoVolgare ;
+                                         rdfs:label "GenereMaschileLemmaSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/GenereMaschileSostantivoVolgare
+orl:GenereMaschileSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoGenereSostantivoVolgare ;
+                                    rdfs:label "GenereMaschileSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/GenereMaschileVerboVolgare
+orl:GenereMaschileVerboVolgare rdf:type owl:NamedIndividual ,
+                                        orl:TipoGenereVerboVolgare ;
+                               rdfs:label "GenereMaschileVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ImperfettoCongiuntivoVerboVolgare
+orl:ImperfettoCongiuntivoVerboVolgare rdf:type owl:NamedIndividual ,
+                                               orl:TipoTempoVerboVolgare ;
+                                      rdfs:label "ImperfettoCongiuntivoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/ImperfettoIndicativoVerboVolgare
+orl:ImperfettoIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                              orl:TipoTempoVerboVolgare ;
+                                     rdfs:label "ImperfettoIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/NomeProprio
+orl:NomeProprio rdf:type owl:NamedIndividual ,
+                         orl:TipoDellOnomasticaVolgare ;
+                rdfs:label "NomeProprio"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/NomeProprioSeparato
+orl:NomeProprioSeparato rdf:type owl:NamedIndividual ,
+                                 orl:TipoDellOnomasticaVolgare ;
+                        rdfs:label "NomeProprioSeparato"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/NumeroPluraleSostantivoVolgare
+orl:NumeroPluraleSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                            orl:TipoNumeroSostantivoVolgare ;
+                                   rdfs:label "NumeroPluraleSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/NumeroPluraleVerboVolgare
+orl:NumeroPluraleVerboVolgare rdf:type owl:NamedIndividual ,
+                                       orl:TipoNumeroVerboVolgare ;
+                              rdfs:label "NumeroPluraleVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/NumeroSingolareSostantivoVolgare
+orl:NumeroSingolareSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                              orl:TipoNumeroSostantivoVolgare ;
+                                     rdfs:label "NumeroSingolareSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/NumeroSingolareVerboVolgare
+orl:NumeroSingolareVerboVolgare rdf:type owl:NamedIndividual ,
+                                         orl:TipoNumeroVerboVolgare ;
+                                rdfs:label "NumeroSingolareVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoCondizionaleVerboVolgare
+orl:PassatoCondizionaleVerboVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoTempoVerboVolgare ;
+                                    rdfs:label "PassatoCondizionaleVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoCongiuntivoVerboVolgare
+orl:PassatoCongiuntivoVerboVolgare rdf:type owl:NamedIndividual ,
+                                            orl:TipoTempoVerboVolgare ;
+                                   rdfs:label "PassatoCongiuntivoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoGerundioVerboVolgare
+orl:PassatoGerundioVerboVolgare rdf:type owl:NamedIndividual ,
+                                         orl:TipoTempoVerboVolgare ;
+                                rdfs:label "PassatoGerundioVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoInfinitoVerboVolgare
+orl:PassatoInfinitoVerboVolgare rdf:type owl:NamedIndividual ,
+                                         orl:TipoTempoVerboVolgare ;
+                                rdfs:label "PassatoInfinitoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoParticipioVerboVolgare
+orl:PassatoParticipioVerboVolgare rdf:type owl:NamedIndividual ,
+                                           orl:TipoTempoVerboVolgare ;
+                                  rdfs:label "PassatoParticipioVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoProssimoIndicativoVerboVolgare
+orl:PassatoProssimoIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                                   orl:TipoTempoVerboVolgare ;
+                                          rdfs:label "PassatoProssimoIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PassatoRemotoIndicativoVerboVolgare
+orl:PassatoRemotoIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                                 orl:TipoTempoVerboVolgare ;
+                                        rdfs:label "PassatoRemotoIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareArticolata
+orl:PreposizioneVolgareArticolata rdf:type owl:NamedIndividual ,
+                                           orl:TipoIIDellaPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareArticolata"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareAvversativa
+orl:PreposizioneVolgareAvversativa rdf:type owl:NamedIndividual ,
+                                            orl:TipoSintassiPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareAvversativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareCausale
+orl:PreposizioneVolgareCausale rdf:type owl:NamedIndividual ,
+                                        orl:TipoSintassiPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgareCausale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareComparativa
+orl:PreposizioneVolgareComparativa rdf:type owl:NamedIndividual ,
+                                            orl:TipoSintassiPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareComparativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareCompletivaObliqua
+orl:PreposizioneVolgareCompletivaObliqua rdf:type owl:NamedIndividual ,
+                                                  orl:TipoSintassiPreposizioneVolgare ;
+                                         rdfs:label "PreposizioneVolgareCompletivaObliqua"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareConcessiva
+orl:PreposizioneVolgareConcessiva rdf:type owl:NamedIndividual ,
+                                           orl:TipoSintassiPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareConcessiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareConcessivo
+orl:PreposizioneVolgareConcessivo rdf:type owl:NamedIndividual ,
+                                           orl:TipoComplementoIIPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareConcessivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareConsecutiva
+orl:PreposizioneVolgareConsecutiva rdf:type owl:NamedIndividual ,
+                                            orl:TipoSintassiPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareConsecutiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiAbbondanzaPrivazione
+orl:PreposizioneVolgareDiAbbondanzaPrivazione rdf:type owl:NamedIndividual ,
+                                                       orl:TipoComplementoIIPreposizioneVolgare ;
+                                              rdfs:label "PreposizioneVolgareDiAbbondanzaPrivazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiAgente
+orl:PreposizioneVolgareDiAgente rdf:type owl:NamedIndividual ,
+                                         orl:TipoComplementoIIPreposizioneVolgare ;
+                                rdfs:label "PreposizioneVolgareDiAgente"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiAllontanamentoSeparazione
+orl:PreposizioneVolgareDiAllontanamentoSeparazione rdf:type owl:NamedIndividual ,
+                                                            orl:TipoComplementoIPreposizioneVolgare ;
+                                                   rdfs:label "PreposizioneVolgareDiAllontanamentoSeparazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiArgomento
+orl:PreposizioneVolgareDiArgomento rdf:type owl:NamedIndividual ,
+                                            orl:TipoComplementoIIPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareDiArgomento"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiCausa
+orl:PreposizioneVolgareDiCausa rdf:type owl:NamedIndividual ,
+                                        orl:TipoComplementoIIPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgareDiCausa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiCausaEfficiente
+orl:PreposizioneVolgareDiCausaEfficiente rdf:type owl:NamedIndividual ,
+                                                  orl:TipoComplementoIIPreposizioneVolgare ;
+                                         rdfs:label "PreposizioneVolgareDiCausaEfficiente"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiColpa
+orl:PreposizioneVolgareDiColpa rdf:type owl:NamedIndividual ,
+                                        orl:TipoComplementoIIPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgareDiColpa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiCompagnia
+orl:PreposizioneVolgareDiCompagnia rdf:type owl:NamedIndividual ,
+                                            orl:TipoComplementoIPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareDiCompagnia"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiDenominazione
+orl:PreposizioneVolgareDiDenominazione rdf:type owl:NamedIndividual ,
+                                                orl:TipoComplementoIIPreposizioneVolgare ;
+                                       rdfs:label "PreposizioneVolgareDiDenominazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiDistanza
+orl:PreposizioneVolgareDiDistanza rdf:type owl:NamedIndividual ,
+                                           orl:TipoComplementoIPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareDiDistanza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiEffetto
+orl:PreposizioneVolgareDiEffetto rdf:type owl:NamedIndividual ,
+                                          orl:TipoComplementoIIPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareDiEffetto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiEsclusione
+orl:PreposizioneVolgareDiEsclusione rdf:type owl:NamedIndividual ,
+                                             orl:TipoComplementoIIPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareDiEsclusione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiEstensione
+orl:PreposizioneVolgareDiEstensione rdf:type owl:NamedIndividual ,
+                                             orl:TipoComplementoIIPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareDiEstensione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiFineScopo
+orl:PreposizioneVolgareDiFineScopo rdf:type owl:NamedIndividual ,
+                                            orl:TipoComplementoIIPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareDiFineScopo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiLimitazione
+orl:PreposizioneVolgareDiLimitazione rdf:type owl:NamedIndividual ,
+                                              orl:TipoComplementoIIPreposizioneVolgare ;
+                                     rdfs:label "PreposizioneVolgareDiLimitazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiLuogo
+orl:PreposizioneVolgareDiLuogo rdf:type owl:NamedIndividual ,
+                                        orl:TipoComplementoIPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgareDiLuogo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiMateria
+orl:PreposizioneVolgareDiMateria rdf:type owl:NamedIndividual ,
+                                          orl:TipoComplementoIPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareDiMateria"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiMezzo
+orl:PreposizioneVolgareDiMezzo rdf:type owl:NamedIndividual ,
+                                        orl:TipoComplementoIPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgareDiMezzo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiModo
+orl:PreposizioneVolgareDiModo rdf:type owl:NamedIndividual ,
+                                       orl:TipoComplementoIPreposizioneVolgare ;
+                              rdfs:label "PreposizioneVolgareDiModo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiMotoALuogo
+orl:PreposizioneVolgareDiMotoALuogo rdf:type owl:NamedIndividual ,
+                                             orl:TipoComplementoIPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareDiMotoALuogo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiMotoDaLuogo
+orl:PreposizioneVolgareDiMotoDaLuogo rdf:type owl:NamedIndividual ,
+                                              orl:TipoComplementoIPreposizioneVolgare ;
+                                     rdfs:label "PreposizioneVolgareDiMotoDaLuogo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiMotoPerLuogo
+orl:PreposizioneVolgareDiMotoPerLuogo rdf:type owl:NamedIndividual ,
+                                               orl:TipoComplementoIPreposizioneVolgare ;
+                                      rdfs:label "PreposizioneVolgareDiMotoPerLuogo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiOrigineProvenienza
+orl:PreposizioneVolgareDiOrigineProvenienza rdf:type owl:NamedIndividual ,
+                                                     orl:TipoComplementoIIPreposizioneVolgare ;
+                                            rdfs:label "PreposizioneVolgareDiOrigineProvenienza"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiParagone
+orl:PreposizioneVolgareDiParagone rdf:type owl:NamedIndividual ,
+                                           orl:TipoComplementoIIPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareDiParagone"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiPena
+orl:PreposizioneVolgareDiPena rdf:type owl:NamedIndividual ,
+                                       orl:TipoComplementoIIPreposizioneVolgare ;
+                              rdfs:label "PreposizioneVolgareDiPena"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiPeso
+orl:PreposizioneVolgareDiPeso rdf:type owl:NamedIndividual ,
+                                       orl:TipoComplementoIIPreposizioneVolgare ;
+                              rdfs:label "PreposizioneVolgareDiPeso"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiQualita
+orl:PreposizioneVolgareDiQualita rdf:type owl:NamedIndividual ,
+                                          orl:TipoComplementoIIPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareDiQualità"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiRapporto
+orl:PreposizioneVolgareDiRapporto rdf:type owl:NamedIndividual ,
+                                           orl:TipoComplementoIIPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareDiRapporto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiSostituzione
+orl:PreposizioneVolgareDiSostituzione rdf:type owl:NamedIndividual ,
+                                               orl:TipoComplementoIIPreposizioneVolgare ;
+                                      rdfs:label "PreposizioneVolgareDiSostituzione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiSpecificazione
+orl:PreposizioneVolgareDiSpecificazione rdf:type owl:NamedIndividual ,
+                                                 orl:TipoComplementoIPreposizioneVolgare ;
+                                        rdfs:label "PreposizioneVolgareDiSpecificazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiStatoInLuogo
+orl:PreposizioneVolgareDiStatoInLuogo rdf:type owl:NamedIndividual ,
+                                               orl:TipoComplementoIPreposizioneVolgare ;
+                                      rdfs:label "PreposizioneVolgareDiStatoInLuogo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiSvantaggio
+orl:PreposizioneVolgareDiSvantaggio rdf:type owl:NamedIndividual ,
+                                             orl:TipoComplementoIPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareDiSvantaggio"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiTempo
+orl:PreposizioneVolgareDiTempo rdf:type owl:NamedIndividual ,
+                                        orl:TipoComplementoIPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgareDiTempo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiTempoContinuato
+orl:PreposizioneVolgareDiTempoContinuato rdf:type owl:NamedIndividual ,
+                                                  orl:TipoComplementoIPreposizioneVolgare ;
+                                         rdfs:label "PreposizioneVolgareDiTempoContinuato"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiTempoDeterminato
+orl:PreposizioneVolgareDiTempoDeterminato rdf:type owl:NamedIndividual ,
+                                                   orl:TipoComplementoIPreposizioneVolgare ;
+                                          rdfs:label "PreposizioneVolgareDiTempoDeterminato"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiTermine
+orl:PreposizioneVolgareDiTermine rdf:type owl:NamedIndividual ,
+                                          orl:TipoComplementoIPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareDiTermine"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiUnione
+orl:PreposizioneVolgareDiUnione rdf:type owl:NamedIndividual ,
+                                         orl:TipoComplementoIPreposizioneVolgare ;
+                                rdfs:label "PreposizioneVolgareDiUnione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiVantaggio
+orl:PreposizioneVolgareDiVantaggio rdf:type owl:NamedIndividual ,
+                                            orl:TipoComplementoIPreposizioneVolgare ;
+                                   rdfs:label "PreposizioneVolgareDiVantaggio"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDichiarativa
+orl:PreposizioneVolgareDichiarativa rdf:type owl:NamedIndividual ,
+                                             orl:TipoSintassiPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareDichiarativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDistributivo
+orl:PreposizioneVolgareDistributivo rdf:type owl:NamedIndividual ,
+                                             orl:TipoComplementoIIPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareDistributivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareEccettuativa
+orl:PreposizioneVolgareEccettuativa rdf:type owl:NamedIndividual ,
+                                             orl:TipoSintassiPreposizioneVolgare ;
+                                    rdfs:label "PreposizioneVolgareEccettuativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareEsclusiva
+orl:PreposizioneVolgareEsclusiva rdf:type owl:NamedIndividual ,
+                                          orl:TipoSintassiPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareEsclusiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareFinale
+orl:PreposizioneVolgareFinale rdf:type owl:NamedIndividual ,
+                                       orl:TipoSintassiPreposizioneVolgare ;
+                              rdfs:label "PreposizioneVolgareFinale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareImpropria
+orl:PreposizioneVolgareImpropria rdf:type owl:NamedIndividual ,
+                                          orl:TipoIDellaPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareImpropria"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareInLocuzione
+orl:PreposizioneVolgareInLocuzione rdf:type owl:NamedIndividual ,
+                                            orl:TipoIIDellaPreposizioneVolgare .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareInLocuzioneSeparata
+orl:PreposizioneVolgareInLocuzioneSeparata rdf:type owl:NamedIndividual ,
+                                                    orl:TipoIIDellaPreposizioneVolgare ;
+                                           rdfs:label "PreposizioneVolgareInLocuzioneSeparata"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareIndirettoBenefattivo
+orl:PreposizioneVolgareIndirettoBenefattivo rdf:type owl:NamedIndividual ,
+                                                     orl:TipoComplementoIIPreposizioneVolgare ;
+                                            rdfs:label "PreposizioneVolgareIndirettoBenefattivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareIndirettoDativo
+orl:PreposizioneVolgareIndirettoDativo rdf:type owl:NamedIndividual ,
+                                                orl:TipoComplementoIIPreposizioneVolgare ;
+                                       rdfs:label "PreposizioneVolgareIndirettoDativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareIndirettoEsperiente
+orl:PreposizioneVolgareIndirettoEsperiente rdf:type owl:NamedIndividual ,
+                                                    orl:TipoComplementoIIPreposizioneVolgare ;
+                                           rdfs:label "PreposizioneVolgareIndirettoEsperiente"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareIndirettoOggetto
+orl:PreposizioneVolgareIndirettoOggetto rdf:type owl:NamedIndividual ,
+                                                 orl:TipoComplementoIIPreposizioneVolgare ;
+                                        rdfs:label "PreposizioneVolgareIndirettoOggetto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareIndirettoPossessore
+orl:PreposizioneVolgareIndirettoPossessore rdf:type owl:NamedIndividual ,
+                                                    orl:TipoComplementoIIPreposizioneVolgare ;
+                                           rdfs:label "PreposizioneVolgareIndirettoPossessore"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareLimitativa
+orl:PreposizioneVolgareLimitativa rdf:type owl:NamedIndividual ,
+                                           orl:TipoSintassiPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareLimitativa"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareModale
+orl:PreposizioneVolgareModale rdf:type owl:NamedIndividual ,
+                                       orl:TipoSintassiPreposizioneVolgare ;
+                              rdfs:label "PreposizioneVolgareModale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareOggettiva
+orl:PreposizioneVolgareOggettiva rdf:type owl:NamedIndividual ,
+                                          orl:TipoSintassiPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareOggettiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgarePartitivo
+orl:PreposizioneVolgarePartitivo rdf:type owl:NamedIndividual ,
+                                          orl:TipoComplementoIIPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgarePartitivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgarePredicativoDelSoggetto
+orl:PreposizioneVolgarePredicativoDelSoggetto rdf:type owl:NamedIndividual ,
+                                                       orl:TipoComplementoIPreposizioneVolgare ;
+                                              rdfs:label "PreposizioneVolgarePredicativoDelSoggetto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgarePredicativoDellOggetto
+orl:PreposizioneVolgarePredicativoDellOggetto rdf:type owl:NamedIndividual ,
+                                                       orl:TipoComplementoIPreposizioneVolgare ;
+                                              rdfs:label "PreposizioneVolgarePredicativoDellOggetto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgarePropria
+orl:PreposizioneVolgarePropria rdf:type owl:NamedIndividual ,
+                                        orl:TipoIDellaPreposizioneVolgare ;
+                               rdfs:label "PreposizioneVolgarePropria"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareSemplice
+orl:PreposizioneVolgareSemplice rdf:type owl:NamedIndividual ,
+                                         orl:TipoIIDellaPreposizioneVolgare ;
+                                rdfs:label "PreposizioneVolgareSemplice"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareSimmetrico
+orl:PreposizioneVolgareSimmetrico rdf:type owl:NamedIndividual ,
+                                           orl:TipoComplementoIIPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareSimmetrico"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareSoggettiva
+orl:PreposizioneVolgareSoggettiva rdf:type owl:NamedIndividual ,
+                                           orl:TipoSintassiPreposizioneVolgare ;
+                                  rdfs:label "PreposizioneVolgareSoggettiva"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareTemporale
+orl:PreposizioneVolgareTemporale rdf:type owl:NamedIndividual ,
+                                          orl:TipoSintassiPreposizioneVolgare ;
+                                 rdfs:label "PreposizioneVolgareTemporale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenteCondizionaleVerboVolgare
+orl:PresenteCondizionaleVerboVolgare rdf:type owl:NamedIndividual ,
+                                              orl:TipoTempoVerboVolgare ;
+                                     rdfs:label "PresenteCondizionaleVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenteCongiuntivoVerboVolgare
+orl:PresenteCongiuntivoVerboVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoTempoVerboVolgare ;
+                                    rdfs:label "PresenteCongiuntivoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenteGerundioVerboVolgare
+orl:PresenteGerundioVerboVolgare rdf:type owl:NamedIndividual ,
+                                          orl:TipoTempoVerboVolgare ;
+                                 rdfs:label "PresenteGerundioVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenteIndicativoVerboVolgare
+orl:PresenteIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                            orl:TipoTempoVerboVolgare ;
+                                   rdfs:label "PresenteIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenteInfinitoVerboVolgare
+orl:PresenteInfinitoVerboVolgare rdf:type owl:NamedIndividual ,
+                                          orl:TipoTempoVerboVolgare ;
+                                 rdfs:label "PresenteInfinitoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenteParticipioVerboVolgare
+orl:PresenteParticipioVerboVolgare rdf:type owl:NamedIndividual ,
+                                            orl:TipoTempoVerboVolgare ;
+                                   rdfs:label "PresenteParticipioVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PresenterImperativoVerboVolgare
+orl:PresenterImperativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoTempoVerboVolgare ;
+                                    rdfs:label "PresenterImperativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PrimaDeclinazioneSostantivoVolgare
+orl:PrimaDeclinazioneSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                                orl:TipoDeclinazioneSostantivoVolgare ;
+                                       rdfs:label "PrimaDeclinazioneSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PrimaDeclinazioneVerboVolgare
+orl:PrimaDeclinazioneVerboVolgare rdf:type owl:NamedIndividual ,
+                                           orl:TipoDeclinazioneVerboVolgare ;
+                                  rdfs:label "PrimaDeclinazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PrimaPersonaPluraleVerboVolgare
+orl:PrimaPersonaPluraleVerboVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoPersonaVerboVolgare ;
+                                    rdfs:label "PrimaPersonaPluraleVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PrimaPersonaSingolareVerboVolgare
+orl:PrimaPersonaSingolareVerboVolgare rdf:type owl:NamedIndividual ,
+                                               orl:TipoPersonaVerboVolgare ;
+                                      rdfs:label "PrimaPersonaSingolareVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeDimostrativoVolgare
+orl:PronomeDimostrativoVolgare rdf:type owl:NamedIndividual ,
+                                        orl:TipoDelPronomeVolgare ;
+                               rdfs:label "PronomeDimostrativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeEncliticoVolgare
+orl:PronomeEncliticoVolgare rdf:type owl:NamedIndividual ,
+                                     orl:TipoFormaPerRifPronomeVolgare ;
+                            rdfs:label "PronomeEncliticoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeEsclamativoVolgare
+orl:PronomeEsclamativoVolgare rdf:type owl:NamedIndividual ,
+                                       orl:TipoDelPronomeVolgare ;
+                              rdfs:label "PronomeEsclamativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeIndefinitoVolgare
+orl:PronomeIndefinitoVolgare rdf:type owl:NamedIndividual ,
+                                      orl:TipoDelPronomeVolgare ;
+                             rdfs:label "PronomeIndefinitoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeInterrogativoVolgare
+orl:PronomeInterrogativoVolgare rdf:type owl:NamedIndividual ,
+                                         orl:TipoDelPronomeVolgare ;
+                                rdfs:label "PronomeInterrogativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeLiberoInComposizioneVolgare
+orl:PronomeLiberoInComposizioneVolgare rdf:type owl:NamedIndividual ,
+                                                orl:TipoFormaPerRifPronomeVolgare ;
+                                       rdfs:label "PronomeLiberoInComposizioneVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeLiberoVolgare
+orl:PronomeLiberoVolgare rdf:type owl:NamedIndividual ,
+                                  orl:TipoFormaPerRifPronomeVolgare ;
+                         rdfs:label "PronomeLiberoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomePersonaleVolgare
+orl:PronomePersonaleVolgare rdf:type owl:NamedIndividual ,
+                                     orl:TipoDelPronomeVolgare ;
+                            rdfs:label "PronomePersonaleVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomePossessivoVolgare
+orl:PronomePossessivoVolgare rdf:type owl:NamedIndividual ,
+                                      orl:TipoDelPronomeVolgare ;
+                             rdfs:label "PronomePossessivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeProcliticoVolgare
+orl:PronomeProcliticoVolgare rdf:type owl:NamedIndividual ,
+                                      orl:TipoFormaPerRifPronomeVolgare ;
+                             rdfs:label "PronomeProcliticoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeRelativoVolgare
+orl:PronomeRelativoVolgare rdf:type owl:NamedIndividual ,
+                                    orl:TipoDelPronomeVolgare ;
+                           rdfs:label "PronomeRelativoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeRiflessivoVolgare
+orl:PronomeRiflessivoVolgare rdf:type owl:NamedIndividual ,
+                                      orl:TipoDelPronomeVolgare ;
+                             rdfs:label "PronomeRiflessivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareCliticoAccusativo
+orl:PronomeVolgareCliticoAccusativo rdf:type owl:NamedIndividual ,
+                                             orl:TipoFunzionePronomeVolgare ;
+                                    rdfs:label "PronomeVolgareCliticoAccusativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareCliticoDativo
+orl:PronomeVolgareCliticoDativo rdf:type owl:NamedIndividual ,
+                                         orl:TipoFunzionePronomeVolgare ;
+                                rdfs:label "PronomeVolgareCliticoDativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareCliticoPartitivo
+orl:PronomeVolgareCliticoPartitivo rdf:type owl:NamedIndividual ,
+                                            orl:TipoFunzionePronomeVolgare ;
+                                   rdfs:label "PronomeVolgareCliticoPartitivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareFemminile
+orl:PronomeVolgareFemminile rdf:type owl:NamedIndividual ,
+                                     orl:TipoGenerePronomeVolgare ;
+                            rdfs:label "PronomeVolgareFemminile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareImpersonale
+orl:PronomeVolgareImpersonale rdf:type owl:NamedIndividual ,
+                                       orl:TipoRiflessiviDelPronomeVolgare ;
+                              rdfs:label "PronomeVolgareImpersonale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareLessicalizzato
+orl:PronomeVolgareLessicalizzato rdf:type owl:NamedIndividual ,
+                                          orl:TipoRiflessiviDelPronomeVolgare ;
+                                 rdfs:label "PronomeVolgareLessicalizzato"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareLiberoComplemento
+orl:PronomeVolgareLiberoComplemento rdf:type owl:NamedIndividual ,
+                                             orl:TipoFunzionePronomeVolgare ;
+                                    rdfs:label "PronomeVolgareLiberoComplemento"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareLiberoRafforzativo
+orl:PronomeVolgareLiberoRafforzativo rdf:type owl:NamedIndividual ,
+                                              orl:TipoFunzionePronomeVolgare ;
+                                     rdfs:label "PronomeVolgareLiberoRafforzativo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareLiberoSoggetto
+orl:PronomeVolgareLiberoSoggetto rdf:type owl:NamedIndividual ,
+                                          orl:TipoFunzionePronomeVolgare ;
+                                 rdfs:label "PronomeVolgareLiberoSoggetto"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareLiberoSoggettoImpersonale
+orl:PronomeVolgareLiberoSoggettoImpersonale rdf:type owl:NamedIndividual ,
+                                                     orl:TipoFunzionePronomeVolgare ;
+                                            rdfs:label "PronomeVolgareLiberoSoggettoImpersonale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareMaschile
+orl:PronomeVolgareMaschile rdf:type owl:NamedIndividual ,
+                                    orl:TipoGenerePronomeVolgare ;
+                           rdfs:label "PronomeVolgareMaschile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgarePassivo
+orl:PronomeVolgarePassivo rdf:type owl:NamedIndividual ,
+                                   orl:TipoRiflessiviDelPronomeVolgare ;
+                          rdfs:label "PronomeVolgarePassivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgarePlurale
+orl:PronomeVolgarePlurale rdf:type owl:NamedIndividual ,
+                                   orl:TipoNumeroPronomeVolgare ;
+                          rdfs:label "PronomeVolgarePlurale"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgarePrimaClassePersona
+orl:PronomeVolgarePrimaClassePersona rdf:type owl:NamedIndividual ,
+                                              orl:TipoClassePersonaPronomeVolgare ;
+                                     rdfs:label "PronomeVolgarePrimaClassePersona"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareProprio
+orl:PronomeVolgareProprio rdf:type owl:NamedIndividual ,
+                                   orl:TipoRiflessiviDelPronomeVolgare ;
+                          rdfs:label "PronomeVolgareProprio"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareReciproco
+orl:PronomeVolgareReciproco rdf:type owl:NamedIndividual ,
+                                     orl:TipoRiflessiviDelPronomeVolgare ;
+                            rdfs:label "PronomeVolgareReciproco"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareSecondaClassePersona
+orl:PronomeVolgareSecondaClassePersona rdf:type owl:NamedIndividual ,
+                                                orl:TipoClassePersonaPronomeVolgare ;
+                                       rdfs:label "PronomeVolgareSecondaClassePersona"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareSingolare
+orl:PronomeVolgareSingolare rdf:type owl:NamedIndividual ,
+                                     orl:TipoNumeroPronomeVolgare ;
+                            rdfs:label "PronomeVolgareSingolare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PronomeVolgareTerzaClassePersona
+orl:PronomeVolgareTerzaClassePersona rdf:type owl:NamedIndividual ,
+                                              orl:TipoClassePersonaPronomeVolgare ;
+                                     rdfs:label "PronomeVolgareTerzaClassePersona"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/SecondaDeclinazioneSostantivoVolgare
+orl:SecondaDeclinazioneSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                                  orl:TipoDeclinazioneSostantivoVolgare ;
+                                         rdfs:label "SecondaDeclinazioneSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/SecondaDeclinazioneVerboVolgare
+orl:SecondaDeclinazioneVerboVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoDeclinazioneVerboVolgare ;
+                                    rdfs:label "SecondaDeclinazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/SecondaPersonaPluraleVerboVolgare
+orl:SecondaPersonaPluraleVerboVolgare rdf:type owl:NamedIndividual ,
+                                               orl:TipoPersonaVerboVolgare ;
+                                      rdfs:label "SecondaPersonaPluraleVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/SecondaPersonaSingolareVerboVolgare
+orl:SecondaPersonaSingolareVerboVolgare rdf:type owl:NamedIndividual ,
+                                                 orl:TipoPersonaVerboVolgare ;
+                                        rdfs:label "SecondaPersonaSingolareVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TerzaDeclinazioneSostantivoVolgare
+orl:TerzaDeclinazioneSostantivoVolgare rdf:type owl:NamedIndividual ,
+                                                orl:TipoDeclinazioneSostantivoVolgare ;
+                                       rdfs:label "TerzaDeclinazioneSostantivoVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TerzaDeclinazioneVerboVolgare
+orl:TerzaDeclinazioneVerboVolgare rdf:type owl:NamedIndividual ,
+                                           orl:TipoDeclinazioneVerboVolgare ;
+                                  rdfs:label "TerzaDeclinazioneVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TerzaPersonaPluraleVerboVolgare
+orl:TerzaPersonaPluraleVerboVolgare rdf:type owl:NamedIndividual ,
+                                             orl:TipoPersonaVerboVolgare ;
+                                    rdfs:label "TerzaPersonaPluraleVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TerzaPersonaSingolareVerboVolgare
+orl:TerzaPersonaSingolareVerboVolgare rdf:type owl:NamedIndividual ,
+                                               orl:TipoPersonaVerboVolgare ;
+                                      rdfs:label "TerzaPersonaSingolareVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/Titolo
+orl:Titolo rdf:type owl:NamedIndividual ,
+                    orl:TipoDellOnomasticaVolgare ;
+           rdfs:label "Titolo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TrapassatoCongiuntivoVerboVolgare
+orl:TrapassatoCongiuntivoVerboVolgare rdf:type owl:NamedIndividual ,
+                                               orl:TipoTempoVerboVolgare ;
+                                      rdfs:label "TrapassatoCongiuntivoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TrapassatoProssimoIndicativoVerboVolgare
+orl:TrapassatoProssimoIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                                      orl:TipoTempoVerboVolgare ;
+                                             rdfs:label "TrapassatoProssimoIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/TrapassatoRemotoIndicativoVerboVolgare
+orl:TrapassatoRemotoIndicativoVerboVolgare rdf:type owl:NamedIndividual ,
+                                                    orl:TipoTempoVerboVolgare ;
+                                           rdfs:label "TrapassatoRemotoIndicativoVerboVolgare"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareAttivo
+orl:VerboVolgareAttivo rdf:type owl:NamedIndividual ,
+                                orl:TipoDiatesiVerboVolgare ;
+                       rdfs:label "VerboVolgareAttivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareAusiliareAvere
+orl:VerboVolgareAusiliareAvere rdf:type owl:NamedIndividual ,
+                                        orl:TipoConiugazioneVerboVolgare ;
+                               rdfs:label "VerboVolgareAusiliareAvere"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareAusiliareEssere
+orl:VerboVolgareAusiliareEssere rdf:type owl:NamedIndividual ,
+                                         orl:TipoConiugazioneVerboVolgare ;
+                                rdfs:label "VerboVolgareAusiliareEssere"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareFunzioneAggettivo
+orl:VerboVolgareFunzioneAggettivo rdf:type owl:NamedIndividual ,
+                                           orl:TipoFunzioneVerboVolgare ;
+                                  rdfs:label "VerboVolgareFunzioneAggettivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareFunzioneSostantivoFemminile
+orl:VerboVolgareFunzioneSostantivoFemminile rdf:type owl:NamedIndividual ,
+                                                     orl:TipoFunzioneVerboVolgare ;
+                                            rdfs:label "VerboVolgareFunzioneSostantivoFemminile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareFunzioneSostantivoMaschile
+orl:VerboVolgareFunzioneSostantivoMaschile rdf:type owl:NamedIndividual ,
+                                                    orl:TipoFunzioneVerboVolgare ;
+                                           rdfs:label "VerboVolgareFunzioneSostantivoMaschile"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareImpersonale
+orl:VerboVolgareImpersonale rdf:type owl:NamedIndividual ,
+                                     orl:VerboVolgareImpersonale .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareIntransitivo
+orl:VerboVolgareIntransitivo rdf:type owl:NamedIndividual ,
+                                      orl:TipoTransitivitaVerboVolgare ;
+                             rdfs:comment "Il tipo dei verbi volgari intransitivi"^^xsd:string ;
+                             rdfs:label "VerboVolgareIntransitivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgarePassivo
+orl:VerboVolgarePassivo rdf:type owl:NamedIndividual ,
+                                 orl:TipoDiatesiVerboVolgare ;
+                        rdfs:label "VerboVolgarePassivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgarePrimaConiugazione
+orl:VerboVolgarePrimaConiugazione rdf:type owl:NamedIndividual ,
+                                           orl:TipoConiugazioneVerboVolgare ;
+                                  rdfs:label "VerboVolgarePrimaConiugazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareRiflessivo
+orl:VerboVolgareRiflessivo rdf:type owl:NamedIndividual ,
+                                    orl:VerboVolgareRiflessivo .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareSecondaConiugazione
+orl:VerboVolgareSecondaConiugazione rdf:type owl:NamedIndividual ,
+                                             orl:TipoConiugazioneVerboVolgare ;
+                                    rdfs:label "VerboVolgareSecondaConiugazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareTerzaConiugazione
+orl:VerboVolgareTerzaConiugazione rdf:type owl:NamedIndividual ,
+                                           orl:TipoConiugazioneVerboVolgare ;
+                                  rdfs:label "VerboVolgareTerzaConiugazione"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/VerboVolgareTransitivo
+orl:VerboVolgareTransitivo rdf:type owl:NamedIndividual ,
+                                    orl:TipoTransitivitaVerboVolgare ;
+                           rdfs:label "VerboVolgareTransitivo"@en .
+
+
+###  https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiQuantit%C3%A0
+<https://dantenetwork.it/ontology/orl/current/PreposizioneVolgareDiQuantit%C3%A0> rdf:type owl:NamedIndividual ,
+                                                                                           orl:TipoComplementoIIPreposizioneVolgare ;
+                                                                                  rdfs:label "PreposizioneVolgareDiQuantità"@en .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+orl:AggettivoVolgareConOggettoIndiretto rdfs:label "AggettivoVolgareConOggettoIndiretto"@en ,
+                                                   "AggettivoVolgareConOggettoIndietto"@en .
+
+
+orl:TipoAggettivoVolgare rdfs:label "TipoAggettivoVolgare"@en .
+
+
+orl:VerboVolgareImpersonale rdfs:label "VerboVolgareImpersonale"@en .
+
+
+orl:VerboVolgareRiflessivo rdfs:label "VerboVolgareRiflessivo"@en .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
