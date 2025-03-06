@@ -818,78 +818,78 @@ syntit:VerbPhraseOccurrence rdf:type owl:Class ;
 #################################################################
 
 ###  https://dantenetwork.it/ontology/orl/current/Consecutiva
-orl:Consecutiva rdf:type owl:NamedIndividual ,
+syntit:Consecutiva rdf:type owl:NamedIndividual ,
                          syntit:ClauseType ;
                 rdfs:label "Consecutiva"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedente
-orl:ConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
                                        syntit:ClauseSubType ;
-                              ecrm:P127_has_broader_term orl:Consecutiva ;
+                              ecrm:P127_has_broader_term syntit:Consecutiva ;
                               rdfs:label "Consecutiva con antecedente"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedenteConValoreFinale
-orl:ConsecutivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
                                                       syntit:ClauseSubType ;
-                                             ecrm:P127_has_broader_term orl:Consecutiva ;
+                                             ecrm:P127_has_broader_term syntit:Consecutiva ;
                                              rdfs:label "Consecutiva con antecedente con valore finale"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedenteConValoreTemporale
-orl:ConsecutivaConAntecedenteConValoreTemporale rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaConAntecedenteConValoreTemporale rdf:type owl:NamedIndividual ,
                                                          syntit:ClauseSubType ;
-                                                ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                 rdfs:label "Consecutiva con antecedente con valore temporale"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaConAntecedenteEpesegetica
-orl:ConsecutivaConAntecedenteEpesegetica rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaConAntecedenteEpesegetica rdf:type owl:NamedIndividual ,
                                                   syntit:ClauseSubType ;
-                                         ecrm:P127_has_broader_term orl:Consecutiva ;
+                                         ecrm:P127_has_broader_term syntit:Consecutiva ;
                                          rdfs:label "Consecutiva con antecedente epesegetica"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaEllittica
-orl:ConsecutivaEllittica rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaEllittica rdf:type owl:NamedIndividual ,
                                   syntit:ClauseSubType ;
-                         ecrm:P127_has_broader_term orl:Consecutiva ;
+                         ecrm:P127_has_broader_term syntit:Consecutiva ;
                          rdfs:label "Consecutiva ellittica"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaLibera
-orl:ConsecutivaLibera rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaLibera rdf:type owl:NamedIndividual ,
                                syntit:ClauseSubType ;
-                      ecrm:P127_has_broader_term orl:Consecutiva ;
+                      ecrm:P127_has_broader_term syntit:Consecutiva ;
                       rdfs:label "Consecutiva libera"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaLiberaConValoreFinale
-orl:ConsecutivaLiberaConValoreFinale rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaLiberaConValoreFinale rdf:type owl:NamedIndividual ,
                                               syntit:ClauseSubType ;
-                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                     ecrm:P127_has_broader_term syntit:Consecutiva ;
                                      rdfs:label "Consecutiva libera con valore finale"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/ConsecutivaPosposta
-orl:ConsecutivaPosposta rdf:type owl:NamedIndividual ,
+syntit:ConsecutivaPosposta rdf:type owl:NamedIndividual ,
                                  syntit:ClauseSubType ;
-                        ecrm:P127_has_broader_term orl:Consecutiva ;
+                        ecrm:P127_has_broader_term syntit:Consecutiva ;
                         rdfs:label "Consecutiva posposta"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/DiManiera
-orl:DiManiera rdf:type owl:NamedIndividual ,
+syntit:DiManiera rdf:type owl:NamedIndividual ,
                        syntit:ClauseType ;
               rdfs:label "Di Maniera"@it ,
                          "Di maniera"@it .
 
 
 ###  https://dantenetwork.it/ontology/orl/current/DiManieraAGerundioPreposizionale
-orl:DiManieraAGerundioPreposizionale rdf:type owl:NamedIndividual ,
+syntit:DiManieraAGerundioPreposizionale rdf:type owl:NamedIndividual ,
                                               syntit:ClauseSubType ;
-                                     ecrm:P127_has_broader_term orl:DiManiera ;
+                                     ecrm:P127_has_broader_term syntit:DiManiera ;
                                      rdfs:label "Di maniera a gerundio preposizionale"@it .
 
 
@@ -1004,7 +1004,7 @@ syntit:ConcessivaFattuale rdf:type owl:NamedIndividual ,
 ###  https://dantenetwork.it/ontology/syntit/current/ConcorrenzaDelRelativoInFraseDiManiera
 syntit:ConcorrenzaDelRelativoInFraseDiManiera rdf:type owl:NamedIndividual ,
                                                        syntit:ClauseSubType ;
-                                              ecrm:P127_has_broader_term orl:DiManiera ;
+                                              ecrm:P127_has_broader_term syntit:DiManiera ;
                                               rdfs:label "Concorrenza del relativo in frase di maniera"@it .
 
 
@@ -1025,14 +1025,14 @@ syntit:CoordinataAsindeticaComparativaDiUguaglianza rdf:type owl:NamedIndividual
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaConsecutivaConAntecedente
 syntit:CoordinataAsindeticaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
                                                               syntit:ClauseSubType ;
-                                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                     ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                      rdfs:label "Coordinata asindetica consecutiva con antecedente"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataAsindeticaDiManiera
 syntit:CoordinataAsindeticaDiManiera rdf:type owl:NamedIndividual ,
                                               syntit:ClauseSubType ;
-                                     ecrm:P127_has_broader_term orl:DiManiera ;
+                                     ecrm:P127_has_broader_term syntit:DiManiera ;
                                      rdfs:label "Coordinata asindetica di maniera"@it .
 
 
@@ -1228,7 +1228,7 @@ syntit:CoordinataAvversativaComparativaDiUguaglianza rdf:type owl:NamedIndividua
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataAvversativaConsecutivaConAntecedente
 syntit:CoordinataAvversativaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
                                                                syntit:ClauseSubType ;
-                                                      ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                      ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                       rdfs:label "Coordinata avversativa consecutiva con antecedente"@it .
 
 
@@ -1368,7 +1368,7 @@ syntit:CoordinataAvversativaTemporale rdf:type owl:NamedIndividual ,
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataConclusivaConsecutivaConAntecedente
 syntit:CoordinataConclusivaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
                                                               syntit:ClauseSubType ;
-                                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                     ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                      rdfs:label "Coordinata conclusiva consecutiva con antecedente"@it .
 
 
@@ -1473,56 +1473,56 @@ syntit:CoordinataCongiuntivaConcessivaFattuale rdf:type owl:NamedIndividual ,
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaConAntecedente
 syntit:CoordinataCongiuntivaConsecutivaConAntecedente rdf:type owl:NamedIndividual ,
                                                                syntit:ClauseSubType ;
-                                                      ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                      ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                       rdfs:label "Coordinata congiuntiva consecutiva con antecedente"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaConAntecedenteConValoreFinale
 syntit:CoordinataCongiuntivaConsecutivaConAntecedenteConValoreFinale rdf:type owl:NamedIndividual ,
                                                                               syntit:ClauseSubType ;
-                                                                     ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                                     ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                                      rdfs:label "Coordinata congiuntiva consecutiva con antecedente con valore finale"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaConAntecedenteEpisegetica
 syntit:CoordinataCongiuntivaConsecutivaConAntecedenteEpisegetica rdf:type owl:NamedIndividual ,
                                                                           syntit:ClauseSubType ;
-                                                                 ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                                 ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                                  rdfs:label "Coordinata congiuntiva consecutiva con antecedente episegetica"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaEllittica
 syntit:CoordinataCongiuntivaConsecutivaEllittica rdf:type owl:NamedIndividual ,
                                                           syntit:ClauseSubType ;
-                                                 ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                 ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                  rdfs:label "Coordinata congiuntiva consecutiva ellittica"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaLibera
 syntit:CoordinataCongiuntivaConsecutivaLibera rdf:type owl:NamedIndividual ,
                                                        syntit:ClauseSubType ;
-                                              ecrm:P127_has_broader_term orl:Consecutiva ;
+                                              ecrm:P127_has_broader_term syntit:Consecutiva ;
                                               rdfs:label "Coordinata congiuntiva consecutiva libera"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaLiberaConValoreFinale
 syntit:CoordinataCongiuntivaConsecutivaLiberaConValoreFinale rdf:type owl:NamedIndividual ,
                                                                       syntit:ClauseSubType ;
-                                                             ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                             ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                              rdfs:label "Coordinata congiuntiva consecutiva libera con valore finale"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaConsecutivaPosposta
 syntit:CoordinataCongiuntivaConsecutivaPosposta rdf:type owl:NamedIndividual ,
                                                          syntit:ClauseSubType ;
-                                                ecrm:P127_has_broader_term orl:Consecutiva ;
+                                                ecrm:P127_has_broader_term syntit:Consecutiva ;
                                                 rdfs:label "Coordinata congiuntiva consecutiva posposta"@it .
 
 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataCongiuntivaDiManiera
 syntit:CoordinataCongiuntivaDiManiera rdf:type owl:NamedIndividual ,
                                                syntit:ClauseSubType ;
-                                      ecrm:P127_has_broader_term orl:DiManiera ;
+                                      ecrm:P127_has_broader_term syntit:DiManiera ;
                                       rdfs:label "Coordinata congiuntiva di maniera"@it .
 
 
@@ -1935,7 +1935,7 @@ syntit:CoordinataDisgiuntivaConcessivaCondizionale rdf:type owl:NamedIndividual 
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaConsecutivaLibera
 syntit:CoordinataDisgiuntivaConsecutivaLibera rdf:type owl:NamedIndividual ,
                                                        syntit:ClauseSubType ;
-                                              ecrm:P127_has_broader_term orl:Consecutiva ;
+                                              ecrm:P127_has_broader_term syntit:Consecutiva ;
                                               rdfs:label "Coordinata disgiuntiva consecutiva libera"@it .
 
 
@@ -1949,7 +1949,7 @@ syntit:CoordinataDisgiuntivaCorrelativaDichiarativa rdf:type owl:NamedIndividual
 ###  https://dantenetwork.it/ontology/syntit/current/CoordinataDisgiuntivaDiManiera
 syntit:CoordinataDisgiuntivaDiManiera rdf:type owl:NamedIndividual ,
                                                syntit:ClauseSubType ;
-                                      ecrm:P127_has_broader_term orl:DiManiera ;
+                                      ecrm:P127_has_broader_term syntit:DiManiera ;
                                       rdfs:label "Coordinata disgiuntiva di maniera"@it .
 
 
